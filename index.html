@@ -2,7 +2,10 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="format-detection" content="telephone=no">
     <title>甲虫库存管理工具 - wenbin出品</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -10,51 +13,50 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', 'Microsoft YaHei', 'PingFang SC', sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Helvetica Neue', 'Microsoft YaHei', sans-serif;
+            -webkit-tap-highlight-color: transparent;
         }
         
         body {
             background-color: #f8faf9;
             color: #2c3e2d;
             line-height: 1.6;
-            padding: 15px;
-            background-image: 
-                radial-gradient(circle at 10% 20%, rgba(76, 175, 80, 0.05) 0%, transparent 20%),
-                radial-gradient(circle at 90% 80%, rgba(76, 175, 80, 0.05) 0%, transparent 20%);
+            padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
             min-height: 100vh;
-            -webkit-tap-highlight-color: transparent;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
         
         .container {
             max-width: 1800px;
             margin: 0 auto;
             background-color: white;
-            border-radius: 18px;
+            border-radius: 20px;
             box-shadow: 
-                0 10px 30px rgba(0, 0, 0, 0.08),
-                0 4px 12px rgba(45, 87, 44, 0.05);
+                0 15px 40px rgba(0, 0, 0, 0.08),
+                0 5px 15px rgba(45, 87, 44, 0.05);
             overflow: hidden;
             border: 1px solid rgba(76, 175, 80, 0.1);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
         }
         
         .container:hover {
             box-shadow: 
-                0 15px 40px rgba(0, 0, 0, 0.1),
-                0 6px 15px rgba(45, 87, 44, 0.08);
+                0 20px 50px rgba(0, 0, 0, 0.1),
+                0 8px 20px rgba(45, 87, 44, 0.08);
         }
         
         .header {
             background: linear-gradient(135deg, #3c763d 0%, #2d572c 100%);
             color: white;
-            padding: 25px 30px;
+            padding: 30px 40px;
             display: flex;
             align-items: center;
             justify-content: space-between;
             flex-wrap: wrap;
             position: relative;
             overflow: hidden;
-            gap: 20px;
         }
         
         .header::before {
@@ -71,26 +73,23 @@
         .logo-container {
             display: flex;
             align-items: center;
-            gap: 20px;
+            gap: 25px;
             z-index: 1;
-            flex: 1;
-            min-width: 250px;
         }
         
         .logo {
-            width: 70px;
-            height: 70px;
+            width: 85px;
+            height: 85px;
             display: flex;
             align-items: center;
             justify-content: center;
             background-color: rgba(255, 255, 255, 0.15);
-            border-radius: 16px;
-            padding: 12px;
+            border-radius: 18px;
+            padding: 15px;
             backdrop-filter: blur(10px);
             border: 2px solid rgba(255, 255, 255, 0.2);
             transition: all 0.3s ease;
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
-            flex-shrink: 0;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
         }
         
         .logo:hover {
@@ -99,37 +98,36 @@
             border-color: rgba(255, 255, 255, 0.3);
         }
         
-        .logo i {
-            color: white;
-            font-size: 2.5rem;
+        .logo img {
+            max-width: 100%;
+            max-height: 100%;
+            filter: invert(1);
         }
         
         .title-area {
             display: flex;
             flex-direction: column;
-            gap: 6px;
-            flex: 1;
+            gap: 8px;
         }
         
         .title {
-            font-size: 1.8rem;
+            font-size: 2.4rem;
             font-weight: 800;
-            letter-spacing: 0.3px;
-            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+            letter-spacing: 0.5px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
             background: linear-gradient(to right, #ffffff, #f1f8e9);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            line-height: 1.2;
         }
         
         .brand {
-            font-size: 0.95rem;
+            font-size: 1.1rem;
             font-weight: 500;
             opacity: 0.9;
             background-color: rgba(255, 255, 255, 0.2);
-            padding: 5px 12px;
-            border-radius: 15px;
+            padding: 6px 15px;
+            border-radius: 20px;
             display: inline-block;
             max-width: fit-content;
             backdrop-filter: blur(5px);
@@ -137,17 +135,17 @@
         }
         
         .content {
-            padding: 25px;
+            padding: 35px;
         }
         
         .section {
-            margin-bottom: 35px;
+            margin-bottom: 45px;
             background-color: #ffffff;
             border-radius: 15px;
-            padding: 25px;
+            padding: 30px;
             box-shadow: 
-                0 6px 20px rgba(0, 0, 0, 0.04),
-                0 3px 8px rgba(76, 175, 80, 0.05);
+                0 8px 25px rgba(0, 0, 0, 0.04),
+                0 4px 10px rgba(76, 175, 80, 0.05);
             border: 1px solid rgba(76, 175, 80, 0.08);
             transition: all 0.3s ease;
             position: relative;
@@ -156,8 +154,8 @@
         
         .section:hover {
             box-shadow: 
-                0 10px 25px rgba(0, 0, 0, 0.06),
-                0 4px 12px rgba(76, 175, 80, 0.08);
+                0 12px 30px rgba(0, 0, 0, 0.06),
+                0 6px 15px rgba(76, 175, 80, 0.08);
             border-color: rgba(76, 175, 80, 0.15);
         }
         
@@ -173,34 +171,33 @@
         }
         
         .section-title {
-            font-size: 1.4rem;
+            font-size: 1.6rem;
             color: #2d572c;
-            margin-bottom: 20px;
-            padding-bottom: 12px;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
             border-bottom: 2px solid #e8f5e9;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
             position: relative;
         }
         
         .section-title i {
             color: #4caf50;
             background-color: rgba(76, 175, 80, 0.1);
-            width: 40px;
-            height: 40px;
-            border-radius: 10px;
+            width: 45px;
+            height: 45px;
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
-            flex-shrink: 0;
         }
         
         .form-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            margin-bottom: 25px;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
         }
         
         .form-group {
@@ -209,29 +206,22 @@
         }
         
         label {
-            margin-bottom: 8px;
+            margin-bottom: 10px;
             font-weight: 600;
             color: #3a5a3a;
             display: flex;
             align-items: center;
-            gap: 6px;
-            font-size: 0.9rem;
+            gap: 8px;
+            font-size: 0.95rem;
         }
         
         label i {
             color: #4caf50;
-            font-size: 0.85rem;
-        }
-        
-        .input-hint {
-            font-size: 0.8rem;
-            color: #8a9c8b;
-            margin-top: 5px;
-            line-height: 1.4;
+            font-size: 0.9rem;
         }
         
         input, select {
-            padding: 12px 15px;
+            padding: 14px 18px;
             border: 2px solid #e0f2e0;
             border-radius: 10px;
             font-size: 1rem;
@@ -241,6 +231,7 @@
             -webkit-appearance: none;
             -moz-appearance: none;
             appearance: none;
+            touch-action: manipulation;
         }
         
         input:focus, select:focus {
@@ -248,33 +239,38 @@
             border-color: #4caf50;
             box-shadow: 
                 0 0 0 3px rgba(76, 175, 80, 0.15),
-                0 4px 12px rgba(76, 175, 80, 0.1);
+                0 5px 15px rgba(76, 175, 80, 0.1);
             background-color: white;
         }
         
         .button-group {
             display: flex;
             flex-wrap: wrap;
-            gap: 12px;
+            gap: 15px;
             margin-top: 15px;
         }
         
         button {
-            padding: 12px 22px;
+            padding: 14px 28px;
             border: none;
             border-radius: 10px;
-            font-size: 0.95rem;
+            font-size: 1rem;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
+            gap: 10px;
             position: relative;
             overflow: hidden;
             touch-action: manipulation;
-            min-height: 44px;
+            -webkit-user-select: none;
+            user-select: none;
+        }
+        
+        button:active {
+            transform: translateY(2px);
         }
         
         button::after {
@@ -309,107 +305,107 @@
         .btn-primary {
             background: linear-gradient(135deg, #4caf50 0%, #3d8b40 100%);
             color: white;
-            box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
+            box-shadow: 0 5px 15px rgba(76, 175, 80, 0.3);
         }
         
-        .btn-primary:hover {
+        .btn-primary:hover, .btn-primary:active {
             background: linear-gradient(135deg, #3d8b40 0%, #2d682f 100%);
-            transform: translateY(-2px);
-            box-shadow: 0 6px 15px rgba(76, 175, 80, 0.4);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(76, 175, 80, 0.4);
         }
         
         .btn-secondary {
             background: linear-gradient(135deg, #607d8b 0%, #546e7a 100%);
             color: white;
-            box-shadow: 0 4px 12px rgba(96, 125, 139, 0.2);
+            box-shadow: 0 5px 15px rgba(96, 125, 139, 0.2);
         }
         
-        .btn-secondary:hover {
+        .btn-secondary:hover, .btn-secondary:active {
             background: linear-gradient(135deg, #546e7a 0%, #455a64 100%);
-            transform: translateY(-2px);
-            box-shadow: 0 6px 15px rgba(96, 125, 139, 0.3);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(96, 125, 139, 0.3);
         }
         
         .btn-danger {
             background: linear-gradient(135deg, #f44336 0%, #d32f2f 100%);
             color: white;
-            box-shadow: 0 4px 12px rgba(244, 67, 54, 0.2);
+            box-shadow: 0 5px 15px rgba(244, 67, 54, 0.2);
         }
         
-        .btn-danger:hover {
+        .btn-danger:hover, .btn-danger:active {
             background: linear-gradient(135deg, #d32f2f 0%, #b71c1c 100%);
-            transform: translateY(-2px);
-            box-shadow: 0 6px 15px rgba(244, 67, 54, 0.3);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(244, 67, 54, 0.3);
         }
         
         .btn-warning {
             background: linear-gradient(135deg, #ff9800 0%, #f57c00 100%);
             color: white;
-            box-shadow: 0 4px 12px rgba(255, 152, 0, 0.2);
+            box-shadow: 0 5px 15px rgba(255, 152, 0, 0.2);
         }
         
-        .btn-warning:hover {
+        .btn-warning:hover, .btn-warning:active {
             background: linear-gradient(135deg, #f57c00 0%, #e65100 100%);
-            transform: translateY(-2px);
-            box-shadow: 0 6px 15px rgba(255, 152, 0, 0.3);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(255, 152, 0, 0.3);
         }
         
         .btn-info {
             background: linear-gradient(135deg, #2196f3 0%, #1976d2 100%);
             color: white;
-            box-shadow: 0 4px 12px rgba(33, 150, 243, 0.2);
+            box-shadow: 0 5px 15px rgba(33, 150, 243, 0.2);
         }
         
-        .btn-info:hover {
+        .btn-info:hover, .btn-info:active {
             background: linear-gradient(135deg, #1976d2 0%, #0d47a1 100%);
-            transform: translateY(-2px);
-            box-shadow: 0 6px 15px rgba(33, 150, 243, 0.3);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(33, 150, 243, 0.3);
         }
         
         .btn-edit {
             background: linear-gradient(135deg, #9c27b0 0%, #7b1fa2 100%);
             color: white;
-            box-shadow: 0 4px 12px rgba(156, 39, 176, 0.2);
+            box-shadow: 0 5px 15px rgba(156, 39, 176, 0.2);
         }
         
-        .btn-edit:hover {
+        .btn-edit:hover, .btn-edit:active {
             background: linear-gradient(135deg, #7b1fa2 0%, #6a1b9a 100%);
-            transform: translateY(-2px);
-            box-shadow: 0 6px 15px rgba(156, 39, 176, 0.3);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(156, 39, 176, 0.3);
         }
         
         .btn-metamorphosis {
             background: linear-gradient(135deg, #ff5722 0%, #e64a19 100%);
             color: white;
-            box-shadow: 0 4px 12px rgba(255, 87, 34, 0.2);
+            box-shadow: 0 5px 15px rgba(255, 87, 34, 0.2);
         }
         
-        .btn-metamorphosis:hover {
+        .btn-metamorphosis:hover, .btn-metamorphosis:active {
             background: linear-gradient(135deg, #e64a19 0%, #d84315 100%);
-            transform: translateY(-2px);
-            box-shadow: 0 6px 15px rgba(255, 87, 34, 0.3);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(255, 87, 34, 0.3);
         }
         
         .btn-sale {
             background: linear-gradient(135deg, #673ab7 0%, #512da8 100%);
             color: white;
-            box-shadow: 0 4px 12px rgba(103, 58, 183, 0.2);
+            box-shadow: 0 5px 15px rgba(103, 58, 183, 0.2);
         }
         
-        .btn-sale:hover {
+        .btn-sale:hover, .btn-sale:active {
             background: linear-gradient(135deg, #512da8 0%, #4527a0 100%);
-            transform: translateY(-2px);
-            box-shadow: 0 6px 15px rgba(103, 58, 183, 0.3);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(103, 58, 183, 0.3);
         }
         
         .table-container {
             overflow-x: auto;
             border-radius: 12px;
             border: 1px solid #e0f2e0;
-            margin-top: 20px;
-            max-height: 600px;
+            margin-top: 25px;
+            max-height: 1000px;
             overflow-y: auto;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.03);
             -webkit-overflow-scrolling: touch;
         }
         
@@ -417,21 +413,19 @@
             width: 100%;
             border-collapse: separate;
             border-spacing: 0;
-            min-width: 1200px;
+            min-width: 1500px;
         }
         
         th {
             background: linear-gradient(to bottom, #2d572c, #3c763d);
             color: white;
             text-align: left;
-            padding: 16px 12px;
+            padding: 18px 15px;
             font-weight: 600;
             position: sticky;
             top: 0;
             z-index: 10;
             border-bottom: 2px solid #4caf50;
-            font-size: 0.9rem;
-            white-space: nowrap;
         }
         
         th:first-child {
@@ -451,40 +445,51 @@
         }
         
         td {
-            padding: 14px 12px;
+            padding: 16px 15px;
             border-bottom: 1px solid #e8f5e9;
             vertical-align: middle;
             transition: background-color 0.2s;
-            font-size: 0.9rem;
+        }
+        
+        /* 修改：甲虫名字加黑 */
+        .beetle-name {
+            font-weight: bold;
+            color: #000;
+        }
+        
+        /* 修改：子分类名字加黑 */
+        .beetle-subcategory {
+            font-weight: bold;
+            color: #000;
         }
         
         .action-cell {
             display: flex;
-            gap: 8px;
+            gap: 10px;
             flex-wrap: wrap;
         }
         
         .action-btn {
-            padding: 8px 12px;
-            font-size: 0.8rem;
+            padding: 8px 14px;
+            font-size: 0.85rem;
             border-radius: 8px;
-            min-width: 70px;
+            min-width: 80px;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 5px;
-            min-height: 36px;
+            gap: 6px;
+            touch-action: manipulation;
         }
         
         .group-header {
             background: linear-gradient(to right, #e8f5e9, #c8e6c9) !important;
             font-weight: bold;
             color: #1b5e20;
-            font-size: 1rem;
+            font-size: 1.1rem;
         }
         
         .group-header td {
-            padding: 10px 12px;
+            padding: 12px 15px;
             border-bottom: 2px solid #4caf50;
         }
         
@@ -492,19 +497,19 @@
             background-color: #f1f8e9 !important;
             font-weight: 600;
             color: #33691e;
-            font-size: 0.95rem;
+            font-size: 1rem;
         }
         
         .subgroup-header td {
-            padding: 8px 12px;
+            padding: 10px 15px;
         }
         
         .status-indicator {
             display: inline-block;
-            width: 12px;
-            height: 12px;
+            width: 14px;
+            height: 14px;
             border-radius: 50%;
-            margin-right: 8px;
+            margin-right: 10px;
             vertical-align: middle;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
         }
@@ -531,9 +536,9 @@
         
         .footer {
             text-align: center;
-            padding: 20px;
+            padding: 25px;
             color: #5a7d5c;
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             border-top: 1px solid #e8f5e9;
             background-color: #f9fdf9;
         }
@@ -541,26 +546,24 @@
         .data-actions {
             display: flex;
             flex-wrap: wrap;
-            gap: 12px;
-            margin-top: 25px;
+            gap: 15px;
+            margin-top: 30px;
         }
         
         .stats {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-            margin-top: 0;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
             z-index: 1;
             position: relative;
-            flex: 1;
-            min-width: 300px;
         }
         
         .stat-card {
             background-color: white;
-            border-radius: 12px;
-            padding: 20px;
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06);
             border-left: 5px solid #4caf50;
             display: flex;
             flex-direction: column;
@@ -581,26 +584,25 @@
         }
         
         .stat-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
             border-color: rgba(76, 175, 80, 0.2);
         }
         
         .stat-title {
-            font-size: 0.85rem;
+            font-size: 0.95rem;
             color: #5a7d5c;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
             font-weight: 500;
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 8px;
         }
         
         .stat-value {
-            font-size: 1.8rem;
+            font-size: 2.2rem;
             font-weight: 800;
             color: #2d572c;
-            line-height: 1.2;
         }
         
         .stat-sales {
@@ -616,16 +618,16 @@
         }
         
         .change-history {
-            margin-top: 12px;
-            padding-top: 12px;
+            margin-top: 15px;
+            padding-top: 15px;
             border-top: 1px dashed #c8e6c9;
         }
         
         .history-item {
             display: flex;
             justify-content: space-between;
-            padding: 6px 0;
-            font-size: 0.85rem;
+            padding: 8px 0;
+            font-size: 0.9rem;
         }
         
         .history-date {
@@ -635,15 +637,15 @@
         
         .empty-table {
             text-align: center;
-            padding: 50px;
+            padding: 60px;
             color: #8a9c8b;
             font-style: italic;
-            font-size: 1rem;
+            font-size: 1.1rem;
         }
         
         .empty-table i {
-            font-size: 2.5rem;
-            margin-bottom: 15px;
+            font-size: 3rem;
+            margin-bottom: 20px;
             color: #c8e6c9;
             display: block;
         }
@@ -655,14 +657,13 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.7);
+            background-color: rgba(0, 0, 0, 0.6);
             z-index: 1000;
             justify-content: center;
             align-items: center;
             backdrop-filter: blur(5px);
             animation: fadeIn 0.3s ease;
-            padding: 15px;
-            overflow-y: auto;
+            padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
         }
         
         @keyframes fadeIn {
@@ -672,21 +673,22 @@
         
         .modal-content {
             background-color: white;
-            border-radius: 16px;
-            width: 100%;
-            max-width: 600px;
-            padding: 25px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+            border-radius: 20px;
+            width: 90%;
+            max-width: 650px;
+            padding: 35px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
             animation: slideUp 0.4s ease;
             border: 1px solid rgba(76, 175, 80, 0.1);
             position: relative;
             overflow: hidden;
-            max-height: 90vh;
+            max-height: 85vh;
             overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
         }
         
         @keyframes slideUp {
-            from { transform: translateY(20px); opacity: 0; }
+            from { transform: translateY(30px); opacity: 0; }
             to { transform: translateY(0); opacity: 1; }
         }
         
@@ -704,11 +706,11 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
         }
         
         .modal-title {
-            font-size: 1.3rem;
+            font-size: 1.5rem;
             color: #2d572c;
             font-weight: 700;
         }
@@ -716,26 +718,26 @@
         .close-modal {
             background: none;
             border: none;
-            font-size: 1.5rem;
+            font-size: 1.8rem;
             cursor: pointer;
             color: #8a9c8b;
             transition: color 0.3s;
-            width: 36px;
-            height: 36px;
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            flex-shrink: 0;
+            touch-action: manipulation;
         }
         
-        .close-modal:hover {
+        .close-modal:hover, .close-modal:active {
             color: #f44336;
             background-color: rgba(244, 67, 54, 0.05);
         }
         
         .tab-container {
-            margin-top: 25px;
+            margin-top: 30px;
         }
         
         .tabs {
@@ -749,10 +751,10 @@
         }
         
         .tab {
-            padding: 14px 20px;
+            padding: 16px 28px;
             background: none;
             border: none;
-            font-size: 0.95rem;
+            font-size: 1.05rem;
             font-weight: 600;
             color: #6b8c6d;
             cursor: pointer;
@@ -762,8 +764,7 @@
             position: relative;
             border-radius: 8px 8px 0 0;
             margin-right: 5px;
-            flex-shrink: 0;
-            min-height: 48px;
+            touch-action: manipulation;
         }
         
         .tab::after {
@@ -781,20 +782,20 @@
         .tab.active {
             color: #2d572c;
             background-color: white;
-            box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.03);
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.03);
         }
         
         .tab.active::after {
             width: 100%;
         }
         
-        .tab:hover:not(.active) {
+        .tab:hover:not(.active), .tab:active:not(.active) {
             color: #4caf50;
             background-color: rgba(76, 175, 80, 0.05);
         }
         
         .tab-content {
-            padding: 20px 0;
+            padding: 25px 0;
             display: none;
             animation: fadeInContent 0.5s ease;
         }
@@ -813,33 +814,43 @@
         }
         
         .reminder-item {
-            padding: 16px;
+            padding: 20px;
             border-radius: 12px;
             background-color: #fff8e1;
             border-left: 5px solid #ff9800;
-            margin-bottom: 12px;
+            margin-bottom: 15px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            flex-wrap: wrap;
             transition: all 0.3s;
-            box-shadow: 0 4px 12px rgba(255, 152, 0, 0.08);
-            gap: 12px;
+            box-shadow: 0 5px 15px rgba(255, 152, 0, 0.08);
+            touch-action: manipulation;
         }
         
-        .reminder-item:hover {
-            transform: translateX(3px);
-            box-shadow: 0 6px 15px rgba(255, 152, 0, 0.15);
+        .reminder-item:hover, .reminder-item:active {
+            transform: translateX(5px);
+            box-shadow: 0 8px 20px rgba(255, 152, 0, 0.15);
         }
         
         .reminder-item.danger {
             background-color: #ffebee;
             border-left-color: #f44336;
-            box-shadow: 0 4px 12px rgba(244, 67, 54, 0.08);
+            box-shadow: 0 5px 15px rgba(244, 67, 54, 0.08);
         }
         
-        .reminder-item.danger:hover {
-            box-shadow: 0 6px 15px rgba(244, 67, 54, 0.15);
+        .reminder-item.danger:hover, .reminder-item.danger:active {
+            box-shadow: 0 8px 20px rgba(244, 67, 54, 0.15);
+        }
+        
+        /* 新增：临近换土提醒样式 */
+        .reminder-item.upcoming {
+            background-color: #e8f5e9;
+            border-left-color: #4caf50;
+            box-shadow: 0 5px 15px rgba(76, 175, 80, 0.08);
+        }
+        
+        .reminder-item.upcoming:hover, .reminder-item.upcoming:active {
+            box-shadow: 0 8px 20px rgba(76, 175, 80, 0.15);
         }
         
         .editable-cell {
@@ -847,18 +858,21 @@
             position: relative;
         }
         
-        .editable-cell:hover {
+        .editable-cell:hover, .editable-cell:active {
             background-color: #e8f5e9 !important;
         }
         
         .edit-input {
             width: 100%;
-            padding: 8px;
+            padding: 10px;
             border: 2px solid #4caf50;
             border-radius: 8px;
-            font-size: 0.95rem;
+            font-size: 1rem;
             background-color: #f9fdf9;
-            box-shadow: 0 3px 8px rgba(76, 175, 80, 0.1);
+            box-shadow: 0 3px 10px rgba(76, 175, 80, 0.1);
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
         }
         
         .edit-input:focus {
@@ -867,23 +881,23 @@
         
         .quick-edit-buttons {
             display: flex;
-            gap: 5px;
-            margin-top: 6px;
+            gap: 6px;
+            margin-top: 8px;
             flex-wrap: wrap;
         }
         
         .quick-btn {
-            padding: 5px 10px;
-            font-size: 0.75rem;
+            padding: 6px 12px;
+            font-size: 0.8rem;
             border-radius: 6px;
             background-color: #e8f5e9;
             border: 1px solid #c8e6c9;
             cursor: pointer;
             transition: all 0.2s;
-            min-height: 30px;
+            touch-action: manipulation;
         }
         
-        .quick-btn:hover {
+        .quick-btn:hover, .quick-btn:active {
             background-color: #4caf50;
             color: white;
             border-color: #4caf50;
@@ -910,9 +924,9 @@
         }
         
         .history-preserved {
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             color: #5a7d5c;
-            margin-top: 4px;
+            margin-top: 5px;
             font-style: italic;
         }
         
@@ -920,22 +934,22 @@
             display: inline-block;
             background: linear-gradient(135deg, #ff9800, #ff5722);
             color: white;
-            padding: 2px 8px;
-            border-radius: 15px;
-            font-size: 0.7rem;
-            margin-left: 6px;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            margin-left: 8px;
             font-weight: 600;
-            box-shadow: 0 2px 6px rgba(255, 152, 0, 0.3);
+            box-shadow: 0 3px 8px rgba(255, 152, 0, 0.3);
         }
         
         .larva-history-preserved {
             display: inline-block;
             background-color: #e8f5e9;
             color: #2d572c;
-            padding: 2px 8px;
-            border-radius: 15px;
-            font-size: 0.7rem;
-            margin-left: 6px;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            margin-left: 8px;
             font-weight: 600;
             border: 1px solid #c8e6c9;
         }
@@ -944,19 +958,20 @@
             display: inline-block;
             background: linear-gradient(135deg, #2196f3, #1976d2);
             color: white;
-            padding: 2px 10px;
-            border-radius: 15px;
-            font-size: 0.7rem;
-            margin-left: 6px;
+            padding: 3px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            margin-left: 8px;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s;
-            box-shadow: 0 2px 6px rgba(33, 150, 243, 0.2);
+            box-shadow: 0 3px 8px rgba(33, 150, 243, 0.2);
+            touch-action: manipulation;
         }
         
-        .soil-history-badge:hover {
+        .soil-history-badge:hover, .soil-history-badge:active {
             transform: translateY(-2px);
-            box-shadow: 0 4px 10px rgba(33, 150, 243, 0.3);
+            box-shadow: 0 5px 15px rgba(33, 150, 243, 0.3);
         }
         
         .tooltip {
@@ -966,22 +981,22 @@
         
         .tooltip .tooltiptext {
             visibility: hidden;
-            width: 280px;
+            width: 320px;
             background-color: #2d572c;
             color: #fff;
             text-align: left;
             border-radius: 10px;
-            padding: 12px;
+            padding: 15px;
             position: absolute;
             z-index: 1001;
             bottom: 125%;
             left: 50%;
-            margin-left: -140px;
+            margin-left: -160px;
             opacity: 0;
             transition: opacity 0.3s;
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             font-weight: normal;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
             border: 1px solid #4caf50;
         }
         
@@ -1002,12 +1017,13 @@
         }
         
         .soil-history-tooltip {
-            max-height: 180px;
+            max-height: 200px;
             overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
         }
         
         .soil-history-item {
-            padding: 6px 0;
+            padding: 8px 0;
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
         
@@ -1019,108 +1035,107 @@
             display: inline-block;
             background-color: #e1bee7;
             color: #4a148c;
-            padding: 2px 10px;
-            border-radius: 15px;
-            font-size: 0.7rem;
-            margin-left: 6px;
+            padding: 3px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            margin-left: 8px;
             font-weight: 600;
             border: 1px solid #ce93d8;
         }
         
         .sale-item {
-            padding: 16px;
+            padding: 20px;
             border-radius: 12px;
             background-color: #f3e5f5;
             border-left: 5px solid #673ab7;
-            margin-bottom: 12px;
+            margin-bottom: 15px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            flex-wrap: wrap;
-            box-shadow: 0 4px 12px rgba(103, 58, 183, 0.08);
+            box-shadow: 0 5px 15px rgba(103, 58, 183, 0.08);
             transition: all 0.3s;
-            gap: 12px;
         }
         
-        .sale-item:hover {
-            transform: translateX(3px);
-            box-shadow: 0 6px 15px rgba(103, 58, 183, 0.15);
+        .sale-item:hover, .sale-item:active {
+            transform: translateX(5px);
+            box-shadow: 0 8px 20px rgba(103, 58, 183, 0.15);
         }
         
         .sale-stat {
             display: inline-block;
-            padding: 5px 12px;
+            padding: 6px 15px;
             background-color: #673ab7;
             color: white;
-            border-radius: 15px;
-            font-size: 0.85rem;
-            margin-left: 8px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin-left: 10px;
             font-weight: 600;
-            box-shadow: 0 2px 6px rgba(103, 58, 183, 0.3);
+            box-shadow: 0 3px 8px rgba(103, 58, 183, 0.3);
         }
         
         .sale-stat.larva {
             background-color: #4caf50;
-            box-shadow: 0 2px 6px rgba(76, 175, 80, 0.3);
+            box-shadow: 0 3px 8px rgba(76, 175, 80, 0.3);
         }
         
         .sale-stat.adult {
             background-color: #9c27b0;
-            box-shadow: 0 2px 6px rgba(156, 39, 176, 0.3);
+            box-shadow: 0 3px 8px rgba(156, 39, 176, 0.3);
         }
         
         .sale-stat.total {
             background-color: #ff9800;
-            box-shadow: 0 2px 6px rgba(255, 152, 0, 0.3);
+            box-shadow: 0 3px 8px rgba(255, 152, 0, 0.3);
         }
         
+        /* 新增：卡片样式 */
         .info-card {
-            margin-top: 25px;
-            padding: 20px;
+            margin-top: 30px;
+            padding: 25px;
             background: linear-gradient(135deg, #e8f5e9, #c8e6c9);
-            border-radius: 12px;
+            border-radius: 15px;
             border: 1px solid #a5d6a7;
         }
         
         .info-card h3 {
             color: #2d572c;
-            margin-bottom: 12px;
-            font-size: 1.1rem;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
         }
         
         .info-card p {
             color: #3a5a3a;
-            line-height: 1.6;
-            font-size: 0.9rem;
+            line-height: 1.7;
         }
         
+        /* 新增：输入框组样式 */
         .input-with-icon {
             position: relative;
         }
         
         .input-with-icon i {
             position: absolute;
-            left: 12px;
+            left: 15px;
             top: 50%;
             transform: translateY(-50%);
             color: #8a9c8b;
-            font-size: 0.9rem;
         }
         
         .input-with-icon input {
-            padding-left: 40px;
+            padding-left: 45px;
         }
         
+        /* 新增：徽章样式 */
         .badge {
             display: inline-block;
-            padding: 3px 8px;
-            border-radius: 10px;
-            font-size: 0.7rem;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.75rem;
             font-weight: 600;
-            margin-left: 6px;
+            margin-left: 8px;
         }
         
         .badge-success {
@@ -1141,6 +1156,7 @@
             border: 1px solid #ef9a9a;
         }
         
+        /* 新增：类别统计行样式 */
         .category-total-row {
             background-color: #f1f8e9 !important;
             font-weight: bold;
@@ -1148,165 +1164,27 @@
         }
         
         .category-total-row td {
-            padding: 12px;
+            padding: 14px 15px;
             border-bottom: 1px solid #c8e6c9;
         }
         
         .grand-total-row {
             background-color: #e8f5e9 !important;
             font-weight: bold;
-            font-size: 0.95rem;
+            font-size: 1.05rem;
             border-top: 3px solid #4caf50;
             border-bottom: 3px solid #4caf50;
         }
         
         .grand-total-row td {
-            padding: 14px 12px;
+            padding: 16px 15px;
             color: #2d572c;
-        }
-        
-        .error-message {
-            color: #f44336;
-            font-size: 0.85rem;
-            margin-top: 5px;
-            display: none;
-        }
-        
-        .input-error {
-            border-color: #f44336 !important;
-        }
-        
-        .input-error:focus {
-            box-shadow: 0 0 0 3px rgba(244, 67, 54, 0.15) !important;
-        }
-        
-        .loading {
-            position: relative;
-            pointer-events: none;
-            opacity: 0.7;
-        }
-        
-        .loading::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 20px;
-            height: 20px;
-            border: 2px solid #f3f3f3;
-            border-top: 2px solid #4caf50;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            transform: translate(-50%, -50%);
-        }
-        
-        @keyframes spin {
-            0% { transform: translate(-50%, -50%) rotate(0deg); }
-            100% { transform: translate(-50%, -50%) rotate(360deg); }
-        }
-        
-        .mobile-only {
-            display: none;
-        }
-        
-        .desktop-only {
-            display: block;
-        }
-        
-        .toast {
-            position: fixed;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            background-color: #2d572c;
-            color: white;
-            padding: 12px 24px;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-            z-index: 1001;
-            opacity: 0;
-            transition: opacity 0.3s, transform 0.3s;
-            max-width: 90%;
-            text-align: center;
-        }
-        
-        .toast.show {
-            opacity: 1;
-            transform: translateX(-50%) translateY(0);
-        }
-        
-        .backup-notice {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background-color: #fff3e0;
-            border: 1px solid #ffcc80;
-            border-radius: 10px;
-            padding: 12px 16px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            z-index: 1002;
-            max-width: 300px;
-            display: none;
-        }
-        
-        .backup-notice.show {
-            display: block;
-            animation: slideInRight 0.3s ease;
-        }
-        
-        @keyframes slideInRight {
-            from {
-                transform: translateX(100%);
-                opacity: 0;
-            }
-            to {
-                transform: translateX(0);
-                opacity: 1;
-            }
-        }
-        
-        .search-container {
-            margin-bottom: 20px;
-        }
-        
-        .search-input {
-            width: 100%;
-            padding: 12px 15px 12px 45px;
-            border: 2px solid #e0f2e0;
-            border-radius: 10px;
-            font-size: 1rem;
-            background-color: #f9fdf9;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%238a9c8b' viewBox='0 0 16 16'%3E%3Cpath d='M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z'/%3E%3C/svg%3E");
-            background-repeat: no-repeat;
-            background-position: 15px center;
-            background-size: 16px;
-        }
-        
-        .search-input:focus {
-            outline: none;
-            border-color: #4caf50;
-            box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.15);
-            background-color: white;
-        }
-        
-        .no-results {
-            text-align: center;
-            padding: 40px;
-            color: #8a9c8b;
-            font-style: italic;
-        }
-        
-        .no-results i {
-            font-size: 3rem;
-            margin-bottom: 15px;
-            color: #e0f2e0;
-            display: block;
         }
         
         /* 滚动条美化 */
         ::-webkit-scrollbar {
-            width: 6px;
-            height: 6px;
+            width: 8px;
+            height: 8px;
         }
         
         ::-webkit-scrollbar-track {
@@ -1323,6 +1201,25 @@
             background: #a5d6a7;
         }
         
+        /* 新增：iOS Safari特定优化 */
+        @supports (-webkit-touch-callout: none) {
+            input, select, textarea {
+                font-size: 16px; /* 防止iOS Safari自动缩放 */
+            }
+            
+            .modal-content {
+                overscroll-behavior: contain;
+            }
+            
+            button, .action-btn, .tab {
+                min-height: 44px; /* iOS最小触摸区域 */
+            }
+            
+            .quick-btn {
+                min-height: 36px;
+            }
+        }
+        
         /* 响应式设计 */
         @media (max-width: 1200px) {
             .form-grid {
@@ -1332,137 +1229,85 @@
         
         @media (max-width: 992px) {
             .header {
-                padding: 20px 25px;
+                padding: 25px 30px;
             }
             
             .content {
-                padding: 20px;
+                padding: 25px;
             }
             
             .section {
-                padding: 20px;
-                margin-bottom: 25px;
+                padding: 25px;
             }
             
             .stats {
                 grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .table-container {
+                max-height: 800px; /* 平板设备上也增加高度 */
             }
         }
         
         @media (max-width: 768px) {
             body {
                 padding: 10px;
-            }
-            
-            .container {
-                border-radius: 15px;
+                padding-top: env(safe-area-inset-top);
+                padding-bottom: env(safe-area-inset-bottom);
             }
             
             .header {
-                padding: 15px 20px;
+                padding: 20px;
                 flex-direction: column;
-                gap: 15px;
+                text-align: center;
+                gap: 20px;
             }
             
             .logo-container {
-                width: 100%;
-                justify-content: center;
+                flex-direction: column;
                 text-align: center;
-            }
-            
-            .logo {
-                width: 60px;
-                height: 60px;
-            }
-            
-            .logo i {
-                font-size: 2rem;
+                gap: 15px;
             }
             
             .title {
-                font-size: 1.5rem;
-                text-align: center;
-            }
-            
-            .brand {
-                align-self: center;
-                font-size: 0.9rem;
+                font-size: 2rem;
             }
             
             .content {
-                padding: 15px;
+                padding: 20px;
             }
             
             .section {
-                padding: 18px;
-                margin-bottom: 20px;
-            }
-            
-            .section-title {
-                font-size: 1.2rem;
-            }
-            
-            .section-title i {
-                width: 36px;
-                height: 36px;
-                font-size: 0.9rem;
+                padding: 20px;
+                margin-bottom: 30px;
             }
             
             .form-grid {
                 grid-template-columns: 1fr;
-                gap: 15px;
-            }
-            
-            input, select {
-                padding: 14px 15px;
-                font-size: 16px; /* 防止iOS缩放 */
             }
             
             .action-cell {
                 flex-direction: column;
                 align-items: stretch;
-                gap: 6px;
             }
             
             .action-btn {
                 width: 100%;
                 justify-content: center;
-                min-height: 40px;
             }
             
             .tooltip .tooltiptext {
-                width: 250px;
-                margin-left: -125px;
-                font-size: 0.75rem;
-                padding: 10px;
+                width: 280px;
+                margin-left: -140px;
             }
             
             .tabs {
-                padding: 3px 3px 0 3px;
-            }
-            
-            .tab {
-                padding: 12px 15px;
-                font-size: 0.9rem;
-                min-height: 44px;
+                overflow-x: auto;
+                flex-wrap: nowrap;
             }
             
             .stats {
                 grid-template-columns: 1fr;
-                gap: 12px;
-                width: 100%;
-            }
-            
-            .stat-card {
-                padding: 16px;
-            }
-            
-            .stat-title {
-                font-size: 0.8rem;
-            }
-            
-            .stat-value {
-                font-size: 1.5rem;
             }
             
             .button-group {
@@ -1470,131 +1315,102 @@
             }
             
             button {
-                padding: 14px 20px;
+                padding: 12px 20px;
                 flex: 1;
-                min-width: 140px;
-                min-height: 48px;
-                font-size: 0.9rem;
+                min-width: 150px;
             }
             
             .modal-content {
-                padding: 20px 15px;
-                width: 100%;
-                max-height: 85vh;
-                border-radius: 12px;
+                padding: 25px;
+                width: 95%;
+                max-height: 80vh;
             }
             
-            .modal-title {
-                font-size: 1.2rem;
-            }
-            
-            .info-card {
-                padding: 15px;
-            }
-            
-            .info-card h3 {
-                font-size: 1rem;
-            }
-            
-            .info-card p {
-                font-size: 0.85rem;
-            }
-            
-            .mobile-only {
-                display: block;
-            }
-            
-            .desktop-only {
-                display: none;
-            }
-            
-            .backup-notice {
-                top: 10px;
-                right: 10px;
-                left: 10px;
-                max-width: 100%;
+            .table-container {
+                max-height: 600px; /* 移动设备上适当增加 */
             }
         }
         
         @media (max-width: 480px) {
+            body {
+                padding: 10px;
+                padding-top: env(safe-area-inset-top);
+                padding-bottom: env(safe-area-inset-bottom);
+            }
+            
+            .container {
+                border-radius: 15px;
+            }
+            
             .header {
-                padding: 12px 15px;
-            }
-            
-            .title {
-                font-size: 1.3rem;
-            }
-            
-            .brand {
-                font-size: 0.8rem;
-                padding: 4px 10px;
-            }
-            
-            .content {
-                padding: 12px;
-            }
-            
-            .section {
                 padding: 15px;
             }
             
-            button {
-                min-width: 120px;
-                padding: 12px 16px;
+            .logo {
+                width: 70px;
+                height: 70px;
             }
             
-            .action-btn {
-                padding: 10px;
+            .title {
+                font-size: 1.7rem;
             }
             
-            th, td {
-                padding: 10px 8px;
-                font-size: 0.85rem;
+            .brand {
+                font-size: 1rem;
+                padding: 5px 12px;
             }
             
-            .tab {
-                padding: 10px 12px;
-                font-size: 0.85rem;
-            }
-            
-            .stat-card {
-                padding: 14px;
-            }
-            
-            .stat-value {
+            .section-title {
                 font-size: 1.3rem;
             }
             
-            .toast {
-                bottom: 10px;
-                padding: 10px 16px;
-                font-size: 0.9rem;
+            .section-title i {
+                width: 40px;
+                height: 40px;
+            }
+            
+            .tab {
+                padding: 12px 20px;
+                font-size: 0.95rem;
+            }
+            
+            .stat-card {
+                padding: 20px;
+            }
+            
+            .stat-value {
+                font-size: 1.8rem;
+            }
+            
+            .table-container {
+                max-height: 500px; /* 小屏幕设备上适当增加 */
+            }
+            
+            /* 在iPhone上调整按钮大小 */
+            button, .action-btn, .tab {
+                min-height: 44px; /* iOS推荐的最小触摸区域 */
+            }
+            
+            .modal-content {
+                width: 95%;
+                padding: 20px;
+                margin: 10px;
             }
         }
         
-        @media (hover: none) {
-            button:hover {
-                transform: none !important;
+        /* iPhone X及以上型号的安全区域适配 */
+        @media only screen and (device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3),
+               only screen and (device-width: 390px) and (device-height: 844px) and (-webkit-device-pixel-ratio: 3),
+               only screen and (device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2),
+               only screen and (device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3),
+               only screen and (device-width: 428px) and (device-height: 926px) and (-webkit-device-pixel-ratio: 3) {
+            .container {
+                border-radius: 0;
+                min-height: calc(100vh - env(safe-area-inset-top) - env(safe-area-inset-bottom));
             }
             
-            .stat-card:hover {
-                transform: none !important;
-            }
-            
-            .reminder-item:hover {
-                transform: none !important;
-            }
-            
-            .sale-item:hover {
-                transform: none !important;
-            }
-            
-            .soil-history-badge:hover {
-                transform: none !important;
-            }
-            
-            .logo:hover {
-                transform: none !important;
+            .header {
+                padding-top: max(30px, env(safe-area-inset-top));
             }
         }
     </style>
@@ -1604,7 +1420,8 @@
         <header class="header">
             <div class="logo-container">
                 <div class="logo">
-                    <i class="fas fa-bug"></i>
+                    <!-- 甲虫图标 -->
+                    <i class="fas fa-bug" style="font-size: 3.2rem;"></i>
                 </div>
                 <div class="title-area">
                     <h1 class="title">甲虫库存管理工具</h1>
@@ -1632,28 +1449,19 @@
         </header>
         
         <div class="content">
-            <!-- 数据备份提醒 -->
-            <div class="backup-notice" id="backup-notice">
-                <p style="margin-bottom: 8px; font-weight: 600; color: #e65100;"><i class="fas fa-exclamation-triangle"></i> 重要提醒</p>
-                <p style="font-size: 0.9rem; margin-bottom: 10px;">数据仅保存在浏览器本地，请定期备份以防丢失！</p>
-                <button id="backup-now" class="btn-warning" style="width: 100%; padding: 8px;">
-                    <i class="fas fa-save"></i> 立即备份
-                </button>
-            </div>
-            
             <div class="tab-container">
                 <div class="tabs">
                     <button class="tab active" data-tab="inventory">
-                        <i class="fas fa-boxes"></i> <span class="desktop-only">库存管理</span><span class="mobile-only">库存</span>
+                        <i class="fas fa-boxes"></i> 库存管理
                     </button>
                     <button class="tab" data-tab="sales">
-                        <i class="fas fa-chart-line"></i> <span class="desktop-only">售卖记录</span><span class="mobile-only">销售</span>
+                        <i class="fas fa-chart-line"></i> 售卖记录
                     </button>
                     <button class="tab" data-tab="reminders">
-                        <i class="fas fa-bell"></i> <span class="desktop-only">换土提醒</span><span class="mobile-only">提醒</span>
+                        <i class="fas fa-bell"></i> 换土提醒
                     </button>
                     <button class="tab" data-tab="data">
-                        <i class="fas fa-database"></i> <span class="desktop-only">数据管理</span><span class="mobile-only">数据</span>
+                        <i class="fas fa-database"></i> 数据管理
                     </button>
                 </div>
                 
@@ -1666,7 +1474,6 @@
                                 <label for="item-name"><i class="fas fa-tag"></i> 品名 *</label>
                                 <input type="text" id="item-name" placeholder="输入品名，如：彩虹锹形虫">
                                 <div class="input-hint">输入新品名将自动添加到下拉选单</div>
-                                <div class="error-message" id="name-error">请输入品名</div>
                             </div>
                             
                             <div class="form-group">
@@ -1681,7 +1488,7 @@
                             </div>
                             
                             <div class="form-group">
-                                <label for="item-gender"><i class="fas fa-venus-mars"></i> 性别/阶段 *</label>
+                                <label for="item-gender"><i class="fas fa-venus-mars"></i> 性别/阶段</label>
                                 <select id="item-gender">
                                     <option value="">选择性别/阶段</option>
                                     <option value="公">公</option>
@@ -1690,19 +1497,16 @@
                                     <option value="蛹">蛹</option>
                                     <option value="未知">未知</option>
                                 </select>
-                                <div class="error-message" id="gender-error">请选择性别/阶段</div>
                             </div>
                             
                             <div class="form-group">
                                 <label for="item-quantity"><i class="fas fa-hashtag"></i> 数量 *</label>
                                 <input type="number" id="item-quantity" min="1" value="1">
-                                <div class="error-message" id="quantity-error">数量必须大于0</div>
                             </div>
                             
                             <div class="form-group">
                                 <label for="item-price"><i class="fas fa-yen-sign"></i> 单价 (¥)</label>
                                 <input type="number" id="item-price" min="0" step="0.01" placeholder="例如：150.00">
-                                <div class="error-message" id="price-error">单价不能为负数</div>
                             </div>
                             
                             <div class="form-group">
@@ -1733,12 +1537,6 @@
                     
                     <section class="section">
                         <h2 class="section-title"><i class="fas fa-list"></i> 库存列表</h2>
-                        
-                        <!-- 搜索功能 -->
-                        <div class="search-container">
-                            <input type="text" class="search-input" id="search-inventory" placeholder="搜索品名、子分类或尺寸...">
-                        </div>
-                        
                         <div class="info-card">
                             <h3><i class="fas fa-info-circle"></i> 使用提示</h3>
                             <p><i class="fas fa-bug"></i> <strong>幼虫羽化功能</strong>：对于幼虫项目，点击"羽化"按钮可以将其中一只分离为成虫，原幼虫数量减1，成虫将保留幼虫时期的换土历史记录。</p>
@@ -1746,7 +1544,6 @@
                             <p><i class="fas fa-edit"></i> <strong>快速编辑</strong>：点击数量或单价单元格可以直接编辑数值。</p>
                             <p><i class="fas fa-chart-bar"></i> <strong>类别统计</strong>：表格中每个品名下方都会显示该品名的总数量和总价值，表格底部显示所有库存的总计。</p>
                         </div>
-                        
                         <div class="table-container">
                             <table id="inventory-table">
                                 <thead>
@@ -1758,8 +1555,8 @@
                                         <th>数量</th>
                                         <th>单价</th>
                                         <th>总价</th>
-                                        <th class="desktop-only">最近换土时间</th>
-                                        <th class="desktop-only">下次换土时间</th>
+                                        <th>最近换土时间</th>
+                                        <th>下次换土时间</th>
                                         <th>状态</th>
                                         <th>操作</th>
                                     </tr>
@@ -1772,10 +1569,6 @@
                                 <i class="fas fa-inbox"></i>
                                 暂无库存数据，请添加新的甲虫项目
                             </div>
-                            <div id="no-results-message" class="no-results" style="display: none;">
-                                <i class="fas fa-search"></i>
-                                没有找到匹配的项目
-                            </div>
                         </div>
                     </section>
                 </div>
@@ -1787,7 +1580,7 @@
                         
                         <div class="info-card" style="background: linear-gradient(135deg, #f3e5f5, #e1bee7); border-color: #ce93d8;">
                             <h3><i class="fas fa-chart-line"></i> 销售统计</h3>
-                            <div style="display: flex; flex-wrap: wrap; gap: 15px; align-items: center;">
+                            <div style="display: flex; flex-wrap: wrap; gap: 20px; align-items: center;">
                                 <div>
                                     <span style="font-weight: 600;">总销售数量：</span>
                                     <span class="sale-stat total" id="sales-total-count">0</span>
@@ -1802,14 +1595,9 @@
                                 </div>
                                 <div>
                                     <span style="font-weight: 600;">总销售金额：</span>
-                                    <span style="color: #673ab7; font-weight: 800; font-size: 1.2rem;" id="sales-total-amount">¥0</span>
+                                    <span style="color: #673ab7; font-weight: 800; font-size: 1.4rem;" id="sales-total-amount">¥0</span>
                                 </div>
                             </div>
-                        </div>
-                        
-                        <!-- 销售搜索 -->
-                        <div class="search-container">
-                            <input type="text" class="search-input" id="search-sales" placeholder="搜索销售记录...">
                         </div>
                         
                         <div class="table-container">
@@ -1818,13 +1606,13 @@
                                     <tr>
                                         <th>售出日期</th>
                                         <th>品名</th>
-                                        <th class="desktop-only">子分类</th>
-                                        <th class="desktop-only">尺寸</th>
+                                        <th>子分类</th>
+                                        <th>尺寸</th>
                                         <th>性别/阶段</th>
                                         <th>数量</th>
                                         <th>单价</th>
                                         <th>总价</th>
-                                        <th class="desktop-only">备注</th>
+                                        <th>备注</th>
                                         <th>操作</th>
                                     </tr>
                                 </thead>
@@ -1836,13 +1624,9 @@
                                 <i class="fas fa-chart-bar"></i>
                                 暂无售卖记录
                             </div>
-                            <div id="no-sales-results-message" class="no-results" style="display: none;">
-                                <i class="fas fa-search"></i>
-                                没有找到匹配的销售记录
-                            </div>
                         </div>
                         
-                        <div class="button-group" style="margin-top: 25px;">
+                        <div class="button-group" style="margin-top: 30px;">
                             <button id="clear-sales" class="btn-danger">
                                 <i class="fas fa-trash-alt"></i> 清空售卖记录
                             </button>
@@ -1857,10 +1641,21 @@
                 <div class="tab-content" id="reminders-tab">
                     <section class="section">
                         <h2 class="section-title"><i class="fas fa-bell"></i> 换土提醒</h2>
-                        <p style="margin-bottom: 20px; color: #3a5a3a; font-size: 0.95rem;">以下甲虫项目需要关注换土时间，建议在下次换土时间前进行操作。<strong>注：成虫（公、母）不需要换土，但保留历史记录。</strong></p>
+                        <p style="margin-bottom: 25px; color: #3a5a3a; font-size: 1.05rem;">以下甲虫项目需要关注换土时间，建议在下次换土时间前进行操作。<strong>注：成虫（公、母）不需要换土，但保留历史记录。</strong></p>
                         
-                        <div class="reminder-list" id="reminder-list">
-                            <!-- 换土提醒将动态生成 -->
+                        <!-- 新增：临近换土提醒（前5天） -->
+                        <h3 style="color: #2d572c; margin-top: 30px; border-bottom: 2px solid #e8f5e9; padding-bottom: 10px;">
+                            <i class="fas fa-calendar-check"></i> 临近换土提醒（下次换土前5天）
+                        </h3>
+                        <div class="reminder-list" id="upcoming-reminder-list">
+                            <!-- 临近换土提醒将动态生成 -->
+                        </div>
+                        
+                        <h3 style="color: #2d572c; margin-top: 40px; border-bottom: 2px solid #e8f5e9; padding-bottom: 10px;">
+                            <i class="fas fa-exclamation-triangle"></i> 近期需换土提醒（7天内）
+                        </h3>
+                        <div class="reminder-list" id="urgent-reminder-list">
+                            <!-- 近期需换土提醒将动态生成 -->
                         </div>
                         
                         <div class="info-card">
@@ -1880,46 +1675,26 @@
                         <div class="info-card">
                             <h3><i class="fas fa-download"></i> 数据备份与恢复</h3>
                             <p>数据默认保存在浏览器本地存储中。如需备份，请使用导出功能将数据保存到文件。定期备份可以防止数据丢失。</p>
-                            <p style="margin-top: 10px; color: #e65100; font-weight: 600;"><i class="fas fa-exclamation-triangle"></i> 重要：更换浏览器或清除缓存会导致数据丢失！</p>
                         </div>
                         <div class="data-actions">
                             <button id="save-local" class="btn-primary">
-                                <i class="fas fa-save"></i> <span class="desktop-only">保存到本地存储</span><span class="mobile-only">保存</span>
+                                <i class="fas fa-save"></i> 保存到本地存储
                             </button>
                             <button id="load-local" class="btn-secondary">
-                                <i class="fas fa-folder-open"></i> <span class="desktop-only">从本地存储加载</span><span class="mobile-only">加载</span>
+                                <i class="fas fa-folder-open"></i> 从本地存储加载
                             </button>
                             <button id="export-json" class="btn-secondary">
-                                <i class="fas fa-file-export"></i> <span class="desktop-only">导出为JSON文件</span><span class="mobile-only">导出JSON</span>
+                                <i class="fas fa-file-export"></i> 导出为JSON文件
                             </button>
                             <button id="import-json" class="btn-secondary">
-                                <i class="fas fa-file-import"></i> <span class="desktop-only">导入JSON文件</span><span class="mobile-only">导入JSON</span>
+                                <i class="fas fa-file-import"></i> 导入JSON文件
                             </button>
                             <button id="export-excel" class="btn-warning">
-                                <i class="fas fa-file-excel"></i> <span class="desktop-only">导出为Excel</span><span class="mobile-only">导出Excel</span>
+                                <i class="fas fa-file-excel"></i> 导出为Excel
                             </button>
                             <button id="clear-data" class="btn-danger">
-                                <i class="fas fa-trash-alt"></i> <span class="desktop-only">清空所有数据</span><span class="mobile-only">清空数据</span>
+                                <i class="fas fa-trash-alt"></i> 清空所有数据
                             </button>
-                        </div>
-                        
-                        <!-- 数据统计 -->
-                        <div class="info-card" style="margin-top: 25px;">
-                            <h3><i class="fas fa-chart-pie"></i> 数据统计</h3>
-                            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; margin-top: 15px;">
-                                <div>
-                                    <div style="font-weight: 600; color: #5a7d5c; font-size: 0.9rem;">库存项目数</div>
-                                    <div style="font-size: 1.5rem; font-weight: 800; color: #2d572c;" id="data-item-count">0</div>
-                                </div>
-                                <div>
-                                    <div style="font-weight: 600; color: #5a7d5c; font-size: 0.9rem;">销售记录数</div>
-                                    <div style="font-size: 1.5rem; font-weight: 800; color: #673ab7;" id="data-sales-count">0</div>
-                                </div>
-                                <div>
-                                    <div style="font-weight: 600; color: #5a7d5c; font-size: 0.9rem;">最后备份</div>
-                                    <div style="font-size: 0.9rem; color: #8a9c8b;" id="last-backup">从未备份</div>
-                                </div>
-                            </div>
                         </div>
                     </section>
                 </div>
@@ -1928,7 +1703,7 @@
         
         <footer class="footer">
             <p>甲虫库存管理工具 &copy; <span id="current-year">2023</span> | wenbin出品</p>
-            <p style="margin-top: 8px; font-size: 0.85rem; color: #8a9c8b;">
+            <p style="margin-top: 10px; font-size: 0.9rem; color: #8a9c8b;">
                 <i class="fas fa-lock"></i> 本工具支持本地存储，数据不会上传到服务器
             </p>
         </footer>
@@ -1942,17 +1717,16 @@
                 <button class="close-modal">&times;</button>
             </div>
             <div>
-                <p id="modal-item-name" style="margin-bottom: 20px; font-weight: 600; font-size: 1rem; color: #2d572c;"></p>
+                <p id="modal-item-name" style="margin-bottom: 25px; font-weight: 600; font-size: 1.1rem; color: #2d572c;"></p>
                 <div class="form-group">
                     <label for="soil-change-date"><i class="fas fa-calendar-day"></i> 换土日期</label>
                     <input type="date" id="soil-change-date">
-                    <div class="error-message" id="soil-date-error">请选择换土日期</div>
                 </div>
-                <div class="form-group" style="margin-top: 15px;">
+                <div class="form-group" style="margin-top: 20px;">
                     <label for="soil-notes"><i class="fas fa-sticky-note"></i> 备注 (可选)</label>
                     <input type="text" id="soil-notes" placeholder="例如：更换新土，添加发酵木屑">
                 </div>
-                <div class="button-group" style="margin-top: 25px;">
+                <div class="button-group" style="margin-top: 30px;">
                     <button id="save-soil-change" class="btn-primary">
                         <i class="fas fa-save"></i> 保存换土记录
                     </button>
@@ -1972,11 +1746,11 @@
                 <button class="close-modal">&times;</button>
             </div>
             <div>
-                <p id="history-item-name" style="margin-bottom: 20px; font-weight: 600; font-size: 1rem; color: #2d572c;"></p>
+                <p id="history-item-name" style="margin-bottom: 25px; font-weight: 600; font-size: 1.1rem; color: #2d572c;"></p>
                 <div id="history-list">
                     <!-- 换土历史将动态生成 -->
                 </div>
-                <div class="button-group" style="margin-top: 25px;">
+                <div class="button-group" style="margin-top: 30px;">
                     <button id="close-history" class="btn-secondary">
                         关闭
                     </button>
@@ -1997,7 +1771,6 @@
                     <div class="form-group">
                         <label for="edit-item-name"><i class="fas fa-tag"></i> 品名 *</label>
                         <input type="text" id="edit-item-name">
-                        <div class="error-message" id="edit-name-error">请输入品名</div>
                     </div>
                     
                     <div class="form-group">
@@ -2011,7 +1784,7 @@
                     </div>
                     
                     <div class="form-group">
-                        <label for="edit-item-gender"><i class="fas fa-venus-mars"></i> 性别/阶段 *</label>
+                        <label for="edit-item-gender"><i class="fas fa-venus-mars"></i> 性别/阶段</label>
                         <select id="edit-item-gender">
                             <option value="">选择性别/阶段</option>
                             <option value="公">公</option>
@@ -2020,19 +1793,16 @@
                             <option value="蛹">蛹</option>
                             <option value="未知">未知</option>
                         </select>
-                        <div class="error-message" id="edit-gender-error">请选择性别/阶段</div>
                     </div>
                     
                     <div class="form-group">
                         <label for="edit-item-quantity"><i class="fas fa-hashtag"></i> 数量 *</label>
                         <input type="number" id="edit-item-quantity" min="1" value="1">
-                        <div class="error-message" id="edit-quantity-error">数量必须大于0</div>
                     </div>
                     
                     <div class="form-group">
                         <label for="edit-item-price"><i class="fas fa-yen-sign"></i> 单价 (¥)</label>
                         <input type="number" id="edit-item-price" min="0" step="0.01">
-                        <div class="error-message" id="edit-price-error">单价不能为负数</div>
                     </div>
                     
                     <div class="form-group">
@@ -2048,13 +1818,13 @@
                     </div>
                 </div>
                 
-                <div id="edit-history-info" style="margin-top: 15px; padding: 12px; background-color: #e8f5e9; border-radius: 8px; display: none; border: 1px solid #c8e6c9;">
-                    <p style="font-size: 0.9rem; color: #2d572c;">
+                <div id="edit-history-info" style="margin-top: 20px; padding: 15px; background-color: #e8f5e9; border-radius: 10px; display: none; border: 1px solid #c8e6c9;">
+                    <p style="font-size: 0.95rem; color: #2d572c;">
                         <i class="fas fa-info-circle"></i> 此项目有 <span id="edit-history-count">0</span> 条换土历史记录，改变性别不会删除这些记录。
                     </p>
                 </div>
                 
-                <div class="button-group" style="margin-top: 25px;">
+                <div class="button-group" style="margin-top: 30px;">
                     <button id="save-item-edit" class="btn-primary">
                         <i class="fas fa-save"></i> 保存修改
                     </button>
@@ -2074,7 +1844,7 @@
                 <button class="close-modal">&times;</button>
             </div>
             <div>
-                <p id="metamorphosis-item-name" style="margin-bottom: 20px; font-weight: 600; font-size: 1rem; color: #2d572c;"></p>
+                <p id="metamorphosis-item-name" style="margin-bottom: 25px; font-weight: 600; font-size: 1.1rem; color: #2d572c;"></p>
                 <div class="form-grid">
                     <div class="form-group">
                         <label for="metamorphosis-gender"><i class="fas fa-venus-mars"></i> 羽化后性别 *</label>
@@ -2083,7 +1853,6 @@
                             <option value="公">公</option>
                             <option value="母">母</option>
                         </select>
-                        <div class="error-message" id="metamorphosis-gender-error">请选择羽化后性别</div>
                     </div>
                     
                     <div class="form-group">
@@ -2094,13 +1863,11 @@
                     <div class="form-group">
                         <label for="metamorphosis-price"><i class="fas fa-yen-sign"></i> 成虫单价 (¥)</label>
                         <input type="number" id="metamorphosis-price" min="0" step="0.01" placeholder="留空则使用幼虫单价">
-                        <div class="error-message" id="metamorphosis-price-error">单价不能为负数</div>
                     </div>
                     
                     <div class="form-group">
                         <label for="metamorphosis-date"><i class="fas fa-calendar-day"></i> 羽化日期 *</label>
                         <input type="date" id="metamorphosis-date">
-                        <div class="error-message" id="metamorphosis-date-error">请选择羽化日期</div>
                     </div>
                     
                     <div class="form-group">
@@ -2109,19 +1876,19 @@
                     </div>
                 </div>
                 
-                <div id="metamorphosis-info" style="margin-top: 15px; padding: 12px; background-color: #e8f5e9; border-radius: 8px; border: 1px solid #c8e6c9;">
-                    <p style="font-size: 0.9rem; color: #2d572c;">
+                <div id="metamorphosis-info" style="margin-top: 20px; padding: 15px; background-color: #e8f5e9; border-radius: 10px; border: 1px solid #c8e6c9;">
+                    <p style="font-size: 0.95rem; color: #2d572c;">
                         <i class="fas fa-info-circle"></i> 此幼虫有 <span id="metamorphosis-history-count">0</span> 条换土历史记录，羽化后将保留这些记录。
                     </p>
                 </div>
                 
-                <div id="metamorphosis-warning" style="margin-top: 15px; padding: 12px; background-color: #fff3e0; border-radius: 8px; border: 1px solid #ffcc80;">
-                    <p style="font-size: 0.9rem; color: #e65100;">
+                <div id="metamorphosis-warning" style="margin-top: 20px; padding: 15px; background-color: #fff3e0; border-radius: 10px; border: 1px solid #ffcc80;">
+                    <p style="font-size: 0.95rem; color: #e65100;">
                         <i class="fas fa-exclamation-triangle"></i> 执行此操作后，原幼虫项目数量将减1，并创建一个新的成虫项目。
                     </p>
                 </div>
                 
-                <div class="button-group" style="margin-top: 25px;">
+                <div class="button-group" style="margin-top: 30px;">
                     <button id="save-metamorphosis" class="btn-metamorphosis">
                         <i class="fas fa-bug"></i> 确认羽化
                     </button>
@@ -2141,26 +1908,23 @@
                 <button class="close-modal">&times;</button>
             </div>
             <div>
-                <p id="sale-item-name" style="margin-bottom: 20px; font-weight: 600; font-size: 1rem; color: #2d572c;"></p>
+                <p id="sale-item-name" style="margin-bottom: 25px; font-weight: 600; font-size: 1.1rem; color: #2d572c;"></p>
                 <div class="form-grid">
                     <div class="form-group">
                         <label for="sale-date"><i class="fas fa-calendar-day"></i> 售出日期 *</label>
                         <input type="date" id="sale-date">
-                        <div class="error-message" id="sale-date-error">请选择售出日期</div>
                     </div>
                     
                     <div class="form-group">
                         <label for="sale-quantity"><i class="fas fa-hashtag"></i> 售出数量 *</label>
                         <input type="number" id="sale-quantity" min="1" value="1">
                         <div class="input-hint">库存数量: <span id="sale-available-quantity">0</span></div>
-                        <div class="error-message" id="sale-quantity-error">售出数量必须大于0且不超过库存数量</div>
                     </div>
                     
                     <div class="form-group">
                         <label for="sale-price"><i class="fas fa-yen-sign"></i> 售出单价 (¥) *</label>
                         <input type="number" id="sale-price" min="0" step="0.01" placeholder="例如：150.00">
                         <div class="input-hint">原价: <span id="sale-original-price">¥0</span></div>
-                        <div class="error-message" id="sale-price-error">售出单价必须大于0</div>
                     </div>
                     
                     <div class="form-group">
@@ -2174,13 +1938,13 @@
                     </div>
                 </div>
                 
-                <div id="sale-warning" style="margin-top: 15px; padding: 12px; background-color: #fff3e0; border-radius: 8px; border: 1px solid #ffcc80;">
-                    <p style="font-size: 0.9rem; color: #e65100;">
+                <div id="sale-warning" style="margin-top: 20px; padding: 15px; background-color: #fff3e0; border-radius: 10px; border: 1px solid #ffcc80;">
+                    <p style="font-size: 0.95rem; color: #e65100;">
                         <i class="fas fa-exclamation-triangle"></i> 执行此操作后，库存数量将相应减少。如果售出数量等于库存数量，该项目将从库存中移除。
                     </p>
                 </div>
                 
-                <div class="button-group" style="margin-top: 25px;">
+                <div class="button-group" style="margin-top: 30px;">
                     <button id="save-sale" class="btn-sale">
                         <i class="fas fa-money-bill-wave"></i> 确认售卖
                     </button>
@@ -2192,53 +1956,17 @@
         </div>
     </div>
 
-    <!-- Toast通知 -->
-    <div id="toast" class="toast"></div>
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
     <script>
-        // 优化后的JavaScript代码
         document.addEventListener('DOMContentLoaded', function() {
             // 设置当前年份
             document.getElementById('current-year').textContent = new Date().getFullYear();
-            
-            // 显示备份提醒
-            setTimeout(() => {
-                const lastBackup = localStorage.getItem('beetle-last-backup');
-                if (!lastBackup) {
-                    document.getElementById('backup-notice').classList.add('show');
-                }
-            }, 2000);
             
             // 初始化数据
             let inventory = JSON.parse(localStorage.getItem('beetle-inventory')) || [];
             let sales = JSON.parse(localStorage.getItem('beetle-sales')) || [];
             let itemNames = JSON.parse(localStorage.getItem('beetle-item-names')) || [];
             let subcategories = JSON.parse(localStorage.getItem('beetle-subcategories')) || {};
-            
-            // 更新数据统计
-            function updateDataStats() {
-                document.getElementById('data-item-count').textContent = inventory.length;
-                document.getElementById('data-sales-count').textContent = sales.length;
-                
-                const lastBackup = localStorage.getItem('beetle-last-backup');
-                if (lastBackup) {
-                    const date = new Date(lastBackup);
-                    document.getElementById('last-backup').textContent = date.toLocaleDateString() + ' ' + date.toLocaleTimeString();
-                }
-            }
-            
-            // 显示Toast通知
-            function showToast(message, type = 'success') {
-                const toast = document.getElementById('toast');
-                toast.textContent = message;
-                toast.style.backgroundColor = type === 'success' ? '#2d572c' : type === 'error' ? '#f44336' : '#ff9800';
-                toast.classList.add('show');
-                
-                setTimeout(() => {
-                    toast.classList.remove('show');
-                }, 3000);
-            }
             
             // 标签切换功能
             document.querySelectorAll('.tab').forEach(tab => {
@@ -2263,11 +1991,6 @@
                     if (tabId === 'sales') {
                         renderSalesTable();
                         updateSalesStats();
-                    }
-                    
-                    // 如果是数据标签，更新数据统计
-                    if (tabId === 'data') {
-                        updateDataStats();
                     }
                 });
             });
@@ -2324,8 +2047,6 @@
                 
                 // 更新销售统计
                 updateSalesStats();
-                // 更新数据统计
-                updateDataStats();
             }
             
             // 更新销售统计
@@ -2367,42 +2088,23 @@
                 }
             }
             
-            // 显示库存表格
-            function renderInventoryTable(searchTerm = '') {
+            // 显示库存表格（已添加类别统计功能）
+            function renderInventoryTable() {
                 const tbody = document.getElementById('inventory-body');
                 const emptyMsg = document.getElementById('empty-table-message');
-                const noResultsMsg = document.getElementById('no-results-message');
                 
-                // 过滤数据
-                let filteredInventory = inventory;
-                if (searchTerm) {
-                    const term = searchTerm.toLowerCase();
-                    filteredInventory = inventory.filter(item => 
-                        item.name.toLowerCase().includes(term) ||
-                        (item.subcategory && item.subcategory.toLowerCase().includes(term)) ||
-                        (item.size && item.size.toLowerCase().includes(term))
-                    );
-                }
-                
-                if (filteredInventory.length === 0) {
+                if (inventory.length === 0) {
                     tbody.innerHTML = '';
-                    if (searchTerm && inventory.length > 0) {
-                        emptyMsg.style.display = 'none';
-                        noResultsMsg.style.display = 'block';
-                    } else {
-                        emptyMsg.style.display = 'block';
-                        noResultsMsg.style.display = 'none';
-                    }
+                    emptyMsg.style.display = 'block';
                     updateStats();
                     return;
                 }
                 
                 emptyMsg.style.display = 'none';
-                noResultsMsg.style.display = 'none';
                 
                 // 按品名分组并排序
                 const groupedItems = {};
-                filteredInventory.forEach(item => {
+                inventory.forEach(item => {
                     if (!groupedItems[item.name]) {
                         groupedItems[item.name] = [];
                     }
@@ -2519,7 +2221,7 @@
                             if (!needsChange) {
                                 // 成虫 - 不计算换土时间，但保留历史记录
                                 statusHTML = `<span class="status-indicator status-adult"></span>`;
-                                statusText = '成虫';
+                                statusText = '成虫（无需换土）';
                                 lastChangeDate = '<span class="no-change-needed">不需要</span>';
                                 nextChangeDate = '<span class="no-change-needed">不需要</span>';
                                 
@@ -2558,7 +2260,7 @@
                                 // 需要换土的项目（幼虫/蛹）显示换土按钮
                                 actionButtons += `
                                 <button class="action-btn btn-info record-soil-change" data-id="${item.id}">
-                                    <i class="fas fa-seedling"></i> <span class="desktop-only">换土</span>
+                                    <i class="fas fa-seedling"></i> 换土
                                 </button>
                                 `;
                                 
@@ -2566,7 +2268,7 @@
                                 if (item.gender === '幼虫' && item.quantity > 0) {
                                     actionButtons += `
                                     <button class="action-btn btn-metamorphosis record-metamorphosis" data-id="${item.id}">
-                                        <i class="fas fa-bug"></i> <span class="desktop-only">羽化</span>
+                                        <i class="fas fa-bug"></i> 羽化
                                     </button>
                                     `;
                                 }
@@ -2576,7 +2278,7 @@
                             if (item.quantity > 0) {
                                 actionButtons += `
                                 <button class="action-btn btn-sale record-sale" data-id="${item.id}">
-                                    <i class="fas fa-money-bill-wave"></i> <span class="desktop-only">售卖</span>
+                                    <i class="fas fa-money-bill-wave"></i> 售卖
                                 </button>
                                 `;
                             }
@@ -2585,17 +2287,15 @@
                             const hasHistory = item.changeHistory && item.changeHistory.length > 0;
                             const historyButton = `
                             <button class="action-btn btn-secondary view-history" data-id="${item.id}" ${!hasHistory ? 'disabled style="opacity:0.5;"' : ''}>
-                                <i class="fas fa-history"></i> <span class="desktop-only">历史</span>
+                                <i class="fas fa-history"></i> 历史
                             </button>
                             `;
                             
-                            // 移动端简化显示
-                            const mobileStatus = needsChange ? (statusText.length > 4 ? statusText.substring(0, 4) + '...' : statusText) : '成虫';
-                            
+                            // 修改：为品名和子分类添加加黑样式
                             tableHTML += `
                             <tr data-id="${item.id}">
-                                <td>${item.name} ${metamorphosisNote}</td>
-                                <td>${item.subcategory || '-'}</td>
+                                <td class="beetle-name">${item.name} ${metamorphosisNote}</td>
+                                <td class="beetle-subcategory">${item.subcategory || '-'}</td>
                                 <td>${item.size || '-'}</td>
                                 <td class="${genderClass}">${item.gender || '-'} ${soilHistoryBadge}</td>
                                 <td class="editable-cell" data-field="quantity" data-id="${item.id}">
@@ -2605,27 +2305,21 @@
                                     <div class="price-display">¥${item.price.toFixed(2)}</div>
                                 </td>
                                 <td>¥${totalPrice.toFixed(2)}</td>
-                                <td class="desktop-only">${lastChangeDate}</td>
-                                <td class="desktop-only">${nextChangeDate}</td>
+                                <td>${lastChangeDate}</td>
+                                <td>${nextChangeDate}</td>
                                 <td>
-                                    <span class="desktop-only">
-                                        ${statusHTML}
-                                        ${statusText}
-                                    </span>
-                                    <span class="mobile-only">
-                                        ${statusHTML}
-                                        ${mobileStatus}
-                                    </span>
+                                    ${statusHTML}
+                                    ${statusText}
                                     ${historyNote}
                                 </td>
                                 <td class="action-cell">
                                     <button class="action-btn btn-edit edit-item" data-id="${item.id}">
-                                        <i class="fas fa-edit"></i> <span class="desktop-only">编辑</span>
+                                        <i class="fas fa-edit"></i> 编辑
                                     </button>
                                     ${actionButtons}
                                     ${historyButton}
                                     <button class="action-btn btn-danger delete-item" data-id="${item.id}">
-                                        <i class="fas fa-trash"></i> <span class="desktop-only">删除</span>
+                                        <i class="fas fa-trash"></i> 删除
                                     </button>
                                 </td>
                             </tr>
@@ -2662,11 +2356,6 @@
                 updateStats();
                 
                 // 重新绑定按钮事件
-                bindTableEvents();
-            }
-            
-            // 绑定表格事件
-            function bindTableEvents() {
                 document.querySelectorAll('.delete-item').forEach(button => {
                     button.addEventListener('click', function() {
                         const id = this.getAttribute('data-id');
@@ -2716,40 +2405,21 @@
             }
             
             // 显示销售表格
-            function renderSalesTable(searchTerm = '') {
+            function renderSalesTable() {
                 const tbody = document.getElementById('sales-body');
                 const emptyMsg = document.getElementById('empty-sales-message');
-                const noResultsMsg = document.getElementById('no-sales-results-message');
                 
-                // 过滤数据
-                let filteredSales = sales;
-                if (searchTerm) {
-                    const term = searchTerm.toLowerCase();
-                    filteredSales = sales.filter(sale => 
-                        sale.name.toLowerCase().includes(term) ||
-                        (sale.subcategory && sale.subcategory.toLowerCase().includes(term)) ||
-                        (sale.notes && sale.notes.toLowerCase().includes(term))
-                    );
-                }
-                
-                if (filteredSales.length === 0) {
+                if (sales.length === 0) {
                     tbody.innerHTML = '';
-                    if (searchTerm && sales.length > 0) {
-                        emptyMsg.style.display = 'none';
-                        noResultsMsg.style.display = 'block';
-                    } else {
-                        emptyMsg.style.display = 'block';
-                        noResultsMsg.style.display = 'none';
-                    }
+                    emptyMsg.style.display = 'block';
                     return;
                 }
                 
                 emptyMsg.style.display = 'none';
-                noResultsMsg.style.display = 'none';
                 
                 // 按售出日期分组并排序
                 const groupedSales = {};
-                filteredSales.forEach(sale => {
+                sales.forEach(sale => {
                     const saleDate = sale.date;
                     if (!groupedSales[saleDate]) {
                         groupedSales[saleDate] = [];
@@ -2777,17 +2447,17 @@
                         tableHTML += `
                         <tr data-id="${sale.id}">
                             <td>${sale.date}</td>
-                            <td>${sale.name}</td>
-                            <td class="desktop-only">${sale.subcategory || '-'}</td>
-                            <td class="desktop-only">${sale.size || '-'}</td>
+                            <td class="beetle-name">${sale.name}</td>
+                            <td class="beetle-subcategory">${sale.subcategory || '-'}</td>
+                            <td>${sale.size || '-'}</td>
                             <td class="${genderClass}">${sale.gender || '-'}</td>
                             <td>${sale.quantity}</td>
                             <td>¥${sale.price.toFixed(2)}</td>
                             <td>¥${sale.totalPrice.toFixed(2)}</td>
-                            <td class="desktop-only">${sale.notes || '-'}</td>
+                            <td>${sale.notes || '-'}</td>
                             <td class="action-cell">
                                 <button class="action-btn btn-danger delete-sale" data-id="${sale.id}">
-                                    <i class="fas fa-trash"></i> <span class="desktop-only">删除</span>
+                                    <i class="fas fa-trash"></i> 删除
                                 </button>
                             </td>
                         </tr>
@@ -2924,10 +2594,7 @@
                 localStorage.setItem('beetle-inventory', JSON.stringify(inventory));
                 
                 // 重新渲染表格
-                renderInventoryTable(document.getElementById('search-inventory').value);
-                
-                // 显示成功消息
-                showToast(`${field === 'quantity' ? '数量' : '单价'}已更新`, 'success');
+                renderInventoryTable();
             }
             
             // 取消编辑
@@ -2948,10 +2615,13 @@
                 bindEditableCells();
             }
             
-            // 更新换土提醒列表
+            // 更新换土提醒列表（修改：增加临近换土提醒）
             function updateReminders() {
-                const reminderList = document.getElementById('reminder-list');
+                const urgentReminderList = document.getElementById('urgent-reminder-list');
+                const upcomingReminderList = document.getElementById('upcoming-reminder-list');
                 const today = new Date();
+                const fiveDaysLater = new Date();
+                fiveDaysLater.setDate(today.getDate() + 5);
                 const nextWeek = new Date();
                 nextWeek.setDate(today.getDate() + 7);
                 
@@ -2960,10 +2630,9 @@
                     // 只检查需要换土的项目
                     if (!needsSoilChange(item.gender)) return false;
                     
-                    // 如果有下次换土时间，检查是否即将到期
+                    // 如果有下次换土时间
                     if (item.nextChangeDate) {
-                        const nextChangeDate = new Date(item.nextChangeDate);
-                        return nextChangeDate <= nextWeek;
+                        return true;
                     }
                     
                     return false;
@@ -2974,50 +2643,104 @@
                     return new Date(a.nextChangeDate) - new Date(b.nextChangeDate);
                 });
                 
-                if (reminders.length === 0) {
-                    reminderList.innerHTML = `
-                    <div style="text-align: center; padding: 30px; background-color: #f9fdf9; border-radius: 12px; border: 2px dashed #c8e6c9;">
-                        <i class="fas fa-check-circle" style="font-size: 2.5rem; color: #4caf50; margin-bottom: 12px; display: block;"></i>
-                        <p style="color: #5a7d5c; font-size: 1rem; font-weight: 500;">目前没有需要换土的项目，所有项目状态正常。</p>
-                    </div>
-                    `;
-                    return;
-                }
+                // 分离出urgentReminders（7天内）和upcomingReminders（5天后）
+                const urgentReminders = [];
+                const upcomingReminders = [];
                 
-                let reminderHTML = '';
                 reminders.forEach(item => {
                     const nextChangeDate = new Date(item.nextChangeDate);
                     const diffTime = nextChangeDate - today;
                     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
                     
-                    let reminderClass = 'reminder-item';
-                    if (diffDays < 0) {
-                        reminderClass += ' danger';
-                    } else if (diffDays <= 3) {
-                        reminderClass += ' danger';
+                    if (diffDays <= 7) {
+                        urgentReminders.push(item);
+                    } else if (diffDays === 5) {
+                        // 临近换土提醒：下次换土时间前5天
+                        upcomingReminders.push(item);
                     }
-                    
-                    const daysText = diffDays < 0 ? `超期 ${Math.abs(diffDays)} 天` : `剩余 ${diffDays} 天`;
-                    
-                    reminderHTML += `
-                    <div class="${reminderClass}">
-                        <div>
-                            <strong>${item.name}</strong>${item.subcategory ? ` - ${item.subcategory}` : ''} - ${item.size || '无尺寸'} - <span class="${getGenderClass(item.gender)}">${item.gender || '未知'}</span>
-                            <div style="font-size: 0.9rem; margin-top: 6px; color: #5a7d5c;">
-                                <i class="fas fa-hashtag"></i> 数量: ${item.quantity} | <i class="fas fa-calendar-week"></i> 下次换土: ${item.nextChangeDate} <span class="badge ${diffDays < 0 ? 'badge-danger' : diffDays <= 3 ? 'badge-danger' : diffDays <= 7 ? 'badge-warning' : 'badge-success'}">${daysText}</span>
-                            </div>
-                        </div>
-                        <button class="action-btn btn-info record-soil-change" data-id="${item.id}" style="margin: 0; min-width: 100px;">
-                            <i class="fas fa-seedling"></i> 记录换土
-                        </button>
-                    </div>
-                    `;
                 });
                 
-                reminderList.innerHTML = reminderHTML;
+                // 渲染urgentReminders（7天内）
+                if (urgentReminders.length === 0) {
+                    urgentReminderList.innerHTML = `
+                    <div style="text-align: center; padding: 40px; background-color: #f9fdf9; border-radius: 12px; border: 2px dashed #c8e6c9;">
+                        <i class="fas fa-check-circle" style="font-size: 3rem; color: #4caf50; margin-bottom: 15px; display: block;"></i>
+                        <p style="color: #5a7d5c; font-size: 1.1rem; font-weight: 500;">目前没有需要紧急换土的项目。</p>
+                    </div>
+                    `;
+                } else {
+                    let urgentHTML = '';
+                    urgentReminders.forEach(item => {
+                        const nextChangeDate = new Date(item.nextChangeDate);
+                        const diffTime = nextChangeDate - today;
+                        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+                        
+                        let reminderClass = 'reminder-item';
+                        if (diffDays < 0) {
+                            reminderClass += ' danger';
+                        } else if (diffDays <= 3) {
+                            reminderClass += ' danger';
+                        }
+                        
+                        const daysText = diffDays < 0 ? `超期 ${Math.abs(diffDays)} 天` : `剩余 ${diffDays} 天`;
+                        
+                        urgentHTML += `
+                        <div class="${reminderClass}">
+                            <div>
+                                <strong class="beetle-name">${item.name}</strong>${item.subcategory ? ` - <span class="beetle-subcategory">${item.subcategory}</span>` : ''} - ${item.size || '无尺寸'} - <span class="${getGenderClass(item.gender)}">${item.gender || '未知'}</span>
+                                <div style="font-size: 0.95rem; margin-top: 8px; color: #5a7d5c;">
+                                    <i class="fas fa-hashtag"></i> 数量: ${item.quantity} | <i class="fas fa-calendar-week"></i> 下次换土: ${item.nextChangeDate} <span class="badge ${diffDays < 0 ? 'badge-danger' : diffDays <= 3 ? 'badge-danger' : diffDays <= 7 ? 'badge-warning' : 'badge-success'}">${daysText}</span>
+                                </div>
+                            </div>
+                            <button class="action-btn btn-info record-soil-change" data-id="${item.id}" style="margin: 0;">
+                                <i class="fas fa-seedling"></i> 记录换土
+                            </button>
+                        </div>
+                        `;
+                    });
+                    
+                    urgentReminderList.innerHTML = urgentHTML;
+                }
+                
+                // 渲染upcomingReminders（临近换土提醒 - 5天后）
+                if (upcomingReminders.length === 0) {
+                    upcomingReminderList.innerHTML = `
+                    <div style="text-align: center; padding: 40px; background-color: #f9fdf9; border-radius: 12px; border: 2px dashed #c8e6c9;">
+                        <i class="fas fa-calendar-check" style="font-size: 3rem; color: #4caf50; margin-bottom: 15px; display: block;"></i>
+                        <p style="color: #5a7d5c; font-size: 1.1rem; font-weight: 500;">目前没有临近换土（5天后）的项目。</p>
+                    </div>
+                    `;
+                } else {
+                    let upcomingHTML = '';
+                    upcomingReminders.forEach(item => {
+                        const nextChangeDate = new Date(item.nextChangeDate);
+                        const diffTime = nextChangeDate - today;
+                        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+                        
+                        let reminderClass = 'reminder-item upcoming';
+                        
+                        const daysText = `剩余 ${diffDays} 天`;
+                        
+                        upcomingHTML += `
+                        <div class="${reminderClass}">
+                            <div>
+                                <strong class="beetle-name">${item.name}</strong>${item.subcategory ? ` - <span class="beetle-subcategory">${item.subcategory}</span>` : ''} - ${item.size || '无尺寸'} - <span class="${getGenderClass(item.gender)}">${item.gender || '未知'}</span>
+                                <div style="font-size: 0.95rem; margin-top: 8px; color: #5a7d5c;">
+                                    <i class="fas fa-hashtag"></i> 数量: ${item.quantity} | <i class="fas fa-calendar-week"></i> 下次换土: ${item.nextChangeDate} <span class="badge badge-success">${daysText}</span>
+                                </div>
+                            </div>
+                            <button class="action-btn btn-info record-soil-change" data-id="${item.id}" style="margin: 0;">
+                                <i class="fas fa-seedling"></i> 记录换土
+                            </button>
+                        </div>
+                        `;
+                    });
+                    
+                    upcomingReminderList.innerHTML = upcomingHTML;
+                }
                 
                 // 绑定提醒列表中的按钮事件
-                document.querySelectorAll('#reminder-list .record-soil-change').forEach(button => {
+                document.querySelectorAll('#urgent-reminder-list .record-soil-change, #upcoming-reminder-list .record-soil-change').forEach(button => {
                     button.addEventListener('click', function() {
                         const id = this.getAttribute('data-id');
                         openSoilChangeModal(id);
@@ -3049,55 +2772,8 @@
                 return sortedHistory[0].date;
             }
             
-            // 验证表单
-            function validateForm() {
-                let isValid = true;
-                
-                // 重置错误状态
-                document.querySelectorAll('.error-message').forEach(el => el.style.display = 'none');
-                document.querySelectorAll('input, select').forEach(el => el.classList.remove('input-error'));
-                
-                // 验证品名
-                const name = document.getElementById('item-name').value.trim();
-                if (!name) {
-                    document.getElementById('name-error').style.display = 'block';
-                    document.getElementById('item-name').classList.add('input-error');
-                    isValid = false;
-                }
-                
-                // 验证性别
-                const gender = document.getElementById('item-gender').value;
-                if (!gender) {
-                    document.getElementById('gender-error').style.display = 'block';
-                    document.getElementById('item-gender').classList.add('input-error');
-                    isValid = false;
-                }
-                
-                // 验证数量
-                const quantity = parseInt(document.getElementById('item-quantity').value) || 0;
-                if (quantity <= 0) {
-                    document.getElementById('quantity-error').style.display = 'block';
-                    document.getElementById('item-quantity').classList.add('input-error');
-                    isValid = false;
-                }
-                
-                // 验证单价
-                const price = parseFloat(document.getElementById('item-price').value) || 0;
-                if (price < 0) {
-                    document.getElementById('price-error').style.display = 'block';
-                    document.getElementById('item-price').classList.add('input-error');
-                    isValid = false;
-                }
-                
-                return isValid;
-            }
-            
             // 添加新项目
             function addItem() {
-                if (!validateForm()) {
-                    return;
-                }
-                
                 const name = document.getElementById('item-name').value.trim();
                 const subcategory = document.getElementById('item-subcategory').value.trim();
                 const size = document.getElementById('item-size').value.trim();
@@ -3105,6 +2781,19 @@
                 const quantity = parseInt(document.getElementById('item-quantity').value) || 1;
                 const price = parseFloat(document.getElementById('item-price').value) || 0;
                 const changeDate = document.getElementById('item-change-date').value;
+                
+                // 验证必填项
+                if (!name) {
+                    alert('请填写品名');
+                    document.getElementById('item-name').focus();
+                    return;
+                }
+                
+                if (!gender) {
+                    alert('请选择性别/阶段');
+                    document.getElementById('item-gender').focus();
+                    return;
+                }
                 
                 // 添加到品名列表（如果不存在）
                 if (!itemNames.includes(name)) {
@@ -3171,9 +2860,10 @@
                 
                 // 更新表格
                 renderInventoryTable();
+                updateReminders();
                 
                 // 显示成功消息
-                showToast('项目添加成功！' + (needsChange && !changeDate ? '已自动设置换土时间为今天。' : ''), 'success');
+                alert('项目添加成功！' + (needsChange && !changeDate ? '\n注意：已自动设置换土时间为今天。' : ''));
             }
             
             // 删除项目
@@ -3181,9 +2871,8 @@
                 if (confirm('确定要删除这个项目吗？')) {
                     inventory = inventory.filter(item => item.id !== id);
                     localStorage.setItem('beetle-inventory', JSON.stringify(inventory));
-                    renderInventoryTable(document.getElementById('search-inventory').value);
+                    renderInventoryTable();
                     updateReminders();
-                    showToast('项目已删除', 'success');
                 }
             }
             
@@ -3192,10 +2881,8 @@
                 if (confirm('确定要删除这条销售记录吗？')) {
                     sales = sales.filter(sale => sale.id !== id);
                     localStorage.setItem('beetle-sales', JSON.stringify(sales));
-                    renderSalesTable(document.getElementById('search-sales').value);
+                    renderSalesTable();
                     updateSalesStats();
-                    updateStats();
-                    showToast('销售记录已删除', 'success');
                 }
             }
             
@@ -3211,17 +2898,13 @@
                 document.getElementById('item-next-change-date').value = '';
                 document.getElementById('item-change-date').disabled = false;
                 document.getElementById('item-next-change-date').disabled = false;
-                
-                // 清除错误状态
-                document.querySelectorAll('.error-message').forEach(el => el.style.display = 'none');
-                document.querySelectorAll('input, select').forEach(el => el.classList.remove('input-error'));
             }
             
             // 自动填充换土时间
             document.getElementById('auto-fill-date').addEventListener('click', function() {
                 const gender = document.getElementById('item-gender').value;
                 if (!needsSoilChange(gender)) {
-                    showToast('成虫（公、母）不需要换土时间', 'warning');
+                    alert('成虫（公、母）不需要换土时间');
                     return;
                 }
                 
@@ -3231,7 +2914,7 @@
                 document.getElementById('item-change-date').value = today;
                 document.getElementById('item-next-change-date').value = nextDate;
                 
-                showToast('已自动填充换土时间', 'success');
+                alert('已自动填充换土时间：今天为最近换土时间，三个月后为下次换土时间');
             });
             
             // 打开售卖模态框
@@ -3241,7 +2924,7 @@
                 
                 // 如果数量为0，不能进行售卖操作
                 if (item.quantity <= 0) {
-                    showToast('该项目数量为0，无法售卖。', 'error');
+                    alert('该项目数量为0，无法售卖。');
                     return;
                 }
                 
@@ -3259,16 +2942,11 @@
                 document.getElementById('sale-notes').value = '';
                 updateSaleTotalPrice();
                 
-                // 清除错误状态
-                document.querySelectorAll('#sale-modal .error-message').forEach(el => el.style.display = 'none');
-                document.querySelectorAll('#sale-modal input').forEach(el => el.classList.remove('input-error'));
-                
                 // 保存当前项目ID到模态框
                 document.getElementById('sale-modal').dataset.itemId = id;
                 
                 // 显示模态框
                 document.getElementById('sale-modal').style.display = 'flex';
-                document.getElementById('sale-quantity').focus();
             }
             
             // 更新售卖总价
@@ -3280,53 +2958,32 @@
                 document.getElementById('sale-total-price').value = totalPrice.toFixed(2);
             }
             
-            // 验证售卖表单
-            function validateSaleForm() {
-                let isValid = true;
-                
-                // 清除错误状态
-                document.querySelectorAll('#sale-modal .error-message').forEach(el => el.style.display = 'none');
-                document.querySelectorAll('#sale-modal input').forEach(el => el.classList.remove('input-error'));
-                
-                // 验证售出日期
-                const saleDate = document.getElementById('sale-date').value;
-                if (!saleDate) {
-                    document.getElementById('sale-date-error').style.display = 'block';
-                    document.getElementById('sale-date').classList.add('input-error');
-                    isValid = false;
-                }
-                
-                // 验证售出数量
-                const saleQuantity = parseInt(document.getElementById('sale-quantity').value) || 0;
-                const availableQuantity = parseInt(document.getElementById('sale-available-quantity').textContent) || 0;
-                if (saleQuantity <= 0 || saleQuantity > availableQuantity) {
-                    document.getElementById('sale-quantity-error').style.display = 'block';
-                    document.getElementById('sale-quantity').classList.add('input-error');
-                    isValid = false;
-                }
-                
-                // 验证售出单价
-                const salePrice = parseFloat(document.getElementById('sale-price').value) || 0;
-                if (salePrice <= 0) {
-                    document.getElementById('sale-price-error').style.display = 'block';
-                    document.getElementById('sale-price').classList.add('input-error');
-                    isValid = false;
-                }
-                
-                return isValid;
-            }
-            
             // 保存售卖记录
             function saveSale() {
-                if (!validateSaleForm()) {
-                    return;
-                }
-                
                 const id = document.getElementById('sale-modal').dataset.itemId;
                 const saleDate = document.getElementById('sale-date').value;
                 const saleQuantity = parseInt(document.getElementById('sale-quantity').value) || 0;
                 const salePrice = parseFloat(document.getElementById('sale-price').value) || 0;
                 const saleNotes = document.getElementById('sale-notes').value.trim();
+                
+                // 验证必填项
+                if (!saleDate) {
+                    alert('请选择售出日期');
+                    document.getElementById('sale-date').focus();
+                    return;
+                }
+                
+                if (saleQuantity <= 0) {
+                    alert('售出数量必须大于0');
+                    document.getElementById('sale-quantity').focus();
+                    return;
+                }
+                
+                if (salePrice <= 0) {
+                    alert('售出单价必须大于0');
+                    document.getElementById('sale-price').focus();
+                    return;
+                }
                 
                 // 查找项目
                 const itemIndex = inventory.findIndex(item => item.id === id);
@@ -3336,7 +2993,8 @@
                 
                 // 验证库存数量
                 if (saleQuantity > item.quantity) {
-                    showToast(`售出数量不能超过库存数量（当前库存：${item.quantity}）`, 'error');
+                    alert(`售出数量不能超过库存数量（当前库存：${item.quantity}）`);
+                    document.getElementById('sale-quantity').focus();
                     return;
                 }
                 
@@ -3379,18 +3037,20 @@
                 closeSaleModal();
                 
                 // 4. 更新表格和统计
-                renderInventoryTable(document.getElementById('search-inventory').value);
-                renderSalesTable(document.getElementById('search-sales').value);
+                renderInventoryTable();
+                renderSalesTable();
                 updateSalesStats();
+                updateReminders();
                 
                 // 5. 显示成功消息
-                showToast(`售卖记录已保存！成功售出${saleQuantity}只${item.name}，总金额¥${totalPrice.toFixed(2)}。`, 'success');
+                alert(`售卖记录已保存！成功售出${saleQuantity}只${item.name}，总金额¥${totalPrice.toFixed(2)}。`);
             }
             
             // 关闭售卖模态框
             function closeSaleModal() {
                 document.getElementById('sale-modal').style.display = 'none';
                 delete document.getElementById('sale-modal').dataset.itemId;
+                document.getElementById('sale-warning').style.display = 'block';
             }
             
             // 打开幼虫羽化模态框
@@ -3400,13 +3060,13 @@
                 
                 // 如果不是幼虫，不能进行羽化操作
                 if (item.gender !== '幼虫') {
-                    showToast('只有幼虫项目可以进行羽化操作。', 'error');
+                    alert('只有幼虫项目可以进行羽化操作。');
                     return;
                 }
                 
                 // 如果幼虫数量为0，不能进行羽化操作
                 if (item.quantity <= 0) {
-                    showToast('幼虫数量为0，无法进行羽化操作。', 'error');
+                    alert('幼虫数量为0，无法进行羽化操作。');
                     return;
                 }
                 
@@ -3425,9 +3085,8 @@
                 const historyCount = item.changeHistory ? item.changeHistory.length : 0;
                 historyCountElement.textContent = historyCount;
                 
-                // 清除错误状态
-                document.querySelectorAll('#metamorphosis-modal .error-message').forEach(el => el.style.display = 'none');
-                document.querySelectorAll('#metamorphosis-modal input, #metamorphosis-modal select').forEach(el => el.classList.remove('input-error'));
+                // 显示警告信息
+                document.getElementById('metamorphosis-warning').style.display = 'block';
                 
                 // 保存当前项目ID到模态框
                 document.getElementById('metamorphosis-modal').dataset.itemId = id;
@@ -3436,53 +3095,27 @@
                 document.getElementById('metamorphosis-modal').style.display = 'flex';
             }
             
-            // 验证羽化表单
-            function validateMetamorphosisForm() {
-                let isValid = true;
-                
-                // 清除错误状态
-                document.querySelectorAll('#metamorphosis-modal .error-message').forEach(el => el.style.display = 'none');
-                document.querySelectorAll('#metamorphosis-modal input, #metamorphosis-modal select').forEach(el => el.classList.remove('input-error'));
-                
-                // 验证羽化后性别
-                const gender = document.getElementById('metamorphosis-gender').value;
-                if (!gender) {
-                    document.getElementById('metamorphosis-gender-error').style.display = 'block';
-                    document.getElementById('metamorphosis-gender').classList.add('input-error');
-                    isValid = false;
-                }
-                
-                // 验证羽化日期
-                const date = document.getElementById('metamorphosis-date').value;
-                if (!date) {
-                    document.getElementById('metamorphosis-date-error').style.display = 'block';
-                    document.getElementById('metamorphosis-date').classList.add('input-error');
-                    isValid = false;
-                }
-                
-                // 验证单价
-                const price = parseFloat(document.getElementById('metamorphosis-price').value) || 0;
-                if (price < 0) {
-                    document.getElementById('metamorphosis-price-error').style.display = 'block';
-                    document.getElementById('metamorphosis-price').classList.add('input-error');
-                    isValid = false;
-                }
-                
-                return isValid;
-            }
-            
             // 保存羽化记录
             function saveMetamorphosis() {
-                if (!validateMetamorphosisForm()) {
-                    return;
-                }
-                
                 const id = document.getElementById('metamorphosis-modal').dataset.itemId;
                 const gender = document.getElementById('metamorphosis-gender').value;
                 const size = document.getElementById('metamorphosis-size').value.trim();
                 const price = parseFloat(document.getElementById('metamorphosis-price').value) || 0;
                 const date = document.getElementById('metamorphosis-date').value;
                 const notes = document.getElementById('metamorphosis-notes').value.trim();
+                
+                // 验证必填项
+                if (!gender) {
+                    alert('请选择羽化后的性别');
+                    document.getElementById('metamorphosis-gender').focus();
+                    return;
+                }
+                
+                if (!date) {
+                    alert('请选择羽化日期');
+                    document.getElementById('metamorphosis-date').focus();
+                    return;
+                }
                 
                 // 查找原始幼虫项目
                 const larvaIndex = inventory.findIndex(item => item.id === id);
@@ -3492,7 +3125,7 @@
                 
                 // 验证幼虫数量
                 if (larvaItem.quantity <= 0) {
-                    showToast('幼虫数量不足，无法进行羽化操作。', 'error');
+                    alert('幼虫数量不足，无法进行羽化操作。');
                     closeMetamorphosisModal();
                     return;
                 }
@@ -3549,16 +3182,18 @@
                 closeMetamorphosisModal();
                 
                 // 6. 更新表格
-                renderInventoryTable(document.getElementById('search-inventory').value);
+                renderInventoryTable();
+                updateReminders();
                 
                 // 7. 显示成功消息
-                showToast('羽化记录已保存！原幼虫数量减1，已创建新的成虫项目并保留幼虫时期的换土历史记录。', 'success');
+                alert('羽化记录已保存！原幼虫数量减1，已创建新的成虫项目并保留幼虫时期的换土历史记录。');
             }
             
             // 关闭羽化模态框
             function closeMetamorphosisModal() {
                 document.getElementById('metamorphosis-modal').style.display = 'none';
                 delete document.getElementById('metamorphosis-modal').dataset.itemId;
+                document.getElementById('metamorphosis-warning').style.display = 'block';
             }
             
             // 打开记录换土模态框
@@ -3568,7 +3203,7 @@
                 
                 // 如果是成虫，不需要换土
                 if (!needsSoilChange(item.gender)) {
-                    showToast('成虫（公、母）不需要换土，只需定期清洁和喂食即可。但会保留换土历史记录。', 'warning');
+                    alert('成虫（公、母）不需要换土，只需定期清洁和喂食即可。但会保留换土历史记录。');
                     return;
                 }
                 
@@ -3576,10 +3211,6 @@
                 document.getElementById('modal-item-name').textContent = `${displayName} - ${item.size || '无尺寸'} - ${item.gender || '未知'}`;
                 document.getElementById('soil-change-date').valueAsDate = new Date();
                 document.getElementById('soil-notes').value = '';
-                
-                // 清除错误状态
-                document.querySelectorAll('#change-soil-modal .error-message').forEach(el => el.style.display = 'none');
-                document.querySelectorAll('#change-soil-modal input').forEach(el => el.classList.remove('input-error'));
                 
                 // 保存当前项目ID到模态框
                 document.getElementById('change-soil-modal').dataset.itemId = id;
@@ -3594,10 +3225,8 @@
                 const changeDate = document.getElementById('soil-change-date').value;
                 const notes = document.getElementById('soil-notes').value.trim();
                 
-                // 验证换土日期
                 if (!changeDate) {
-                    document.getElementById('soil-date-error').style.display = 'block';
-                    document.getElementById('soil-change-date').classList.add('input-error');
+                    alert('请选择换土日期');
                     return;
                 }
                 
@@ -3606,7 +3235,7 @@
                 
                 // 确保是需要换土的项目
                 if (!needsSoilChange(inventory[itemIndex].gender)) {
-                    showToast('错误：成虫不需要换土！但换土历史记录会保留。', 'error');
+                    alert('错误：成虫不需要换土！但换土历史记录会保留。');
                     closeSoilChangeModal();
                     return;
                 }
@@ -3635,10 +3264,10 @@
                 closeSoilChangeModal();
                 
                 // 更新表格和提醒
-                renderInventoryTable(document.getElementById('search-inventory').value);
+                renderInventoryTable();
                 updateReminders();
                 
-                showToast('换土记录已保存！', 'success');
+                alert('换土记录已保存！');
             }
             
             // 关闭记录换土模态框
@@ -3699,10 +3328,6 @@
                     historyInfo.style.display = 'none';
                 }
                 
-                // 清除错误状态
-                document.querySelectorAll('#edit-item-modal .error-message').forEach(el => el.style.display = 'none');
-                document.querySelectorAll('#edit-item-modal input, #edit-item-modal select').forEach(el => el.classList.remove('input-error'));
-                
                 // 保存当前项目ID到模态框
                 document.getElementById('edit-item-modal').dataset.itemId = id;
                 
@@ -3710,55 +3335,8 @@
                 document.getElementById('edit-item-modal').style.display = 'flex';
             }
             
-            // 验证编辑表单
-            function validateEditForm() {
-                let isValid = true;
-                
-                // 清除错误状态
-                document.querySelectorAll('#edit-item-modal .error-message').forEach(el => el.style.display = 'none');
-                document.querySelectorAll('#edit-item-modal input, #edit-item-modal select').forEach(el => el.classList.remove('input-error'));
-                
-                // 验证品名
-                const name = document.getElementById('edit-item-name').value.trim();
-                if (!name) {
-                    document.getElementById('edit-name-error').style.display = 'block';
-                    document.getElementById('edit-item-name').classList.add('input-error');
-                    isValid = false;
-                }
-                
-                // 验证性别
-                const gender = document.getElementById('edit-item-gender').value;
-                if (!gender) {
-                    document.getElementById('edit-gender-error').style.display = 'block';
-                    document.getElementById('edit-item-gender').classList.add('input-error');
-                    isValid = false;
-                }
-                
-                // 验证数量
-                const quantity = parseInt(document.getElementById('edit-item-quantity').value) || 0;
-                if (quantity <= 0) {
-                    document.getElementById('edit-quantity-error').style.display = 'block';
-                    document.getElementById('edit-item-quantity').classList.add('input-error');
-                    isValid = false;
-                }
-                
-                // 验证单价
-                const price = parseFloat(document.getElementById('edit-item-price').value) || 0;
-                if (price < 0) {
-                    document.getElementById('edit-price-error').style.display = 'block';
-                    document.getElementById('edit-item-price').classList.add('input-error');
-                    isValid = false;
-                }
-                
-                return isValid;
-            }
-            
             // 保存编辑
             function saveItemEdit() {
-                if (!validateEditForm()) {
-                    return;
-                }
-                
                 const id = document.getElementById('edit-item-modal').dataset.itemId;
                 const name = document.getElementById('edit-item-name').value.trim();
                 const subcategory = document.getElementById('edit-item-subcategory').value.trim();
@@ -3768,6 +3346,19 @@
                 const price = parseFloat(document.getElementById('edit-item-price').value) || 0;
                 const lastChangeDate = document.getElementById('edit-item-last-change').value;
                 const nextChangeDate = document.getElementById('edit-item-next-change').value;
+                
+                // 验证必填项
+                if (!name) {
+                    alert('请填写品名');
+                    document.getElementById('edit-item-name').focus();
+                    return;
+                }
+                
+                if (!gender) {
+                    alert('请选择性别/阶段');
+                    document.getElementById('edit-item-gender').focus();
+                    return;
+                }
                 
                 const itemIndex = inventory.findIndex(item => item.id === id);
                 if (itemIndex === -1) return;
@@ -3858,16 +3449,17 @@
                 closeEditModal();
                 
                 // 更新表格
-                renderInventoryTable(document.getElementById('search-inventory').value);
+                renderInventoryTable();
+                updateReminders();
                 
                 // 显示提示信息
-                let message = '项目编辑成功！';
                 if (oldNeedsChange && !newNeedsChange) {
-                    message += '已从幼虫/蛹状态改为成虫，换土时间已清空，但历史记录已保留。';
+                    alert('项目编辑成功！已从幼虫/蛹状态改为成虫，换土时间已清空，但历史记录已保留。');
                 } else if (!oldNeedsChange && newNeedsChange) {
-                    message += '已从成虫状态改为幼虫/蛹，可以使用之前的换土历史记录。';
+                    alert('项目编辑成功！已从成虫状态改为幼虫/蛹，可以使用之前的换土历史记录。');
+                } else {
+                    alert('项目编辑成功！');
                 }
-                showToast(message, 'success');
             }
             
             // 关闭编辑模态框
@@ -3888,7 +3480,7 @@
                 
                 // 如果没有换土历史记录，不显示
                 if (!item.changeHistory || item.changeHistory.length === 0) {
-                    showToast('此项目没有换土历史记录。', 'warning');
+                    alert('此项目没有换土历史记录。');
                     return;
                 }
                 
@@ -3914,8 +3506,8 @@
                 // 添加标题说明
                 if (item.metamorphosisFrom && item.larvaHistoryPreserved) {
                     historyHTML += `
-                    <div style="padding: 12px; background-color: #e8f5e9; border-radius: 8px; margin-bottom: 15px; border: 1px solid #c8e6c9;">
-                        <p style="font-size: 0.9rem; color: #2d572c; margin: 0;">
+                    <div style="padding: 15px; background-color: #e8f5e9; border-radius: 10px; margin-bottom: 20px; border: 1px solid #c8e6c9;">
+                        <p style="font-size: 0.95rem; color: #2d572c; margin: 0;">
                             <i class="fas fa-info-circle"></i> 此成虫由幼虫羽化生成，保留了幼虫时期的换土历史记录。
                         </p>
                     </div>
@@ -3926,7 +3518,7 @@
                     const historyDate = new Date(record.date).toLocaleDateString();
                     // 标记羽化记录
                     const isMetamorphosisRecord = record.notes && record.notes.includes('羽化记录');
-                    const recordClass = isMetamorphosisRecord ? 'style="background-color: #fff3e0; padding: 10px; border-radius: 8px; border-left: 4px solid #ff9800;"' : 'style="padding: 10px; border-radius: 8px; border-left: 4px solid #4caf50;"';
+                    const recordClass = isMetamorphosisRecord ? 'style="background-color: #fff3e0; padding: 12px; border-radius: 8px; border-left: 4px solid #ff9800;"' : 'style="padding: 12px; border-radius: 8px; border-left: 4px solid #4caf50;"';
                     
                     historyHTML += `
                     <div class="history-item" ${recordClass}>
@@ -3953,15 +3545,19 @@
                 localStorage.setItem('beetle-sales', JSON.stringify(sales));
                 localStorage.setItem('beetle-item-names', JSON.stringify(itemNames));
                 localStorage.setItem('beetle-subcategories', JSON.stringify(subcategories));
-                localStorage.setItem('beetle-last-backup', new Date().toISOString());
                 
-                // 隐藏备份提醒
-                document.getElementById('backup-notice').classList.remove('show');
+                // 添加保存成功的视觉反馈
+                const saveBtn = document.getElementById('save-local');
+                const originalText = saveBtn.innerHTML;
+                saveBtn.innerHTML = '<i class="fas fa-check"></i> 保存成功';
+                saveBtn.style.backgroundColor = '#4caf50';
                 
-                // 更新数据统计
-                updateDataStats();
+                setTimeout(() => {
+                    saveBtn.innerHTML = originalText;
+                    saveBtn.style.backgroundColor = '';
+                }, 1500);
                 
-                showToast('数据已保存到本地存储！', 'success');
+                alert('数据已保存到本地存储！');
             }
             
             // 从本地存储加载
@@ -3976,21 +3572,25 @@
                     sales = savedSales || [];
                     itemNames = savedItemNames || [];
                     subcategories = savedSubcategories || {};
-                    
-                    localStorage.setItem('beetle-inventory', JSON.stringify(inventory));
-                    localStorage.setItem('beetle-sales', JSON.stringify(sales));
-                    localStorage.setItem('beetle-item-names', JSON.stringify(itemNames));
-                    localStorage.setItem('beetle-subcategories', JSON.stringify(subcategories));
-                    
-                    renderInventoryTable(document.getElementById('search-inventory').value);
-                    renderSalesTable(document.getElementById('search-sales').value);
+                    renderInventoryTable();
+                    renderSalesTable();
                     updateReminders();
                     updateSalesStats();
-                    updateDataStats();
                     
-                    showToast('数据已从本地存储加载！', 'success');
+                    // 添加加载成功的视觉反馈
+                    const loadBtn = document.getElementById('load-local');
+                    const originalText = loadBtn.innerHTML;
+                    loadBtn.innerHTML = '<i class="fas fa-check"></i> 加载成功';
+                    loadBtn.style.backgroundColor = '#4caf50';
+                    
+                    setTimeout(() => {
+                        loadBtn.innerHTML = originalText;
+                        loadBtn.style.backgroundColor = '';
+                    }, 1500);
+                    
+                    alert('数据已从本地存储加载！');
                 } else {
-                    showToast('本地存储中没有找到数据！', 'error');
+                    alert('本地存储中没有找到数据！');
                 }
             }
             
@@ -4013,12 +3613,6 @@
                 linkElement.setAttribute('href', dataUri);
                 linkElement.setAttribute('download', exportFileDefaultName);
                 linkElement.click();
-                
-                // 更新最后备份时间
-                localStorage.setItem('beetle-last-backup', new Date().toISOString());
-                updateDataStats();
-                
-                showToast('数据已导出为JSON文件！', 'success');
             }
             
             // 导入JSON文件
@@ -4036,30 +3630,26 @@
                             const data = JSON.parse(e.target.result);
                             
                             if (data.inventory) {
-                                if (confirm('导入数据将覆盖当前数据，确定要继续吗？')) {
-                                    inventory = data.inventory;
-                                    sales = data.sales || [];
-                                    itemNames = data.itemNames || [];
-                                    subcategories = data.subcategories || {};
-                                    
-                                    localStorage.setItem('beetle-inventory', JSON.stringify(inventory));
-                                    localStorage.setItem('beetle-sales', JSON.stringify(sales));
-                                    localStorage.setItem('beetle-item-names', JSON.stringify(itemNames));
-                                    localStorage.setItem('beetle-subcategories', JSON.stringify(subcategories));
-                                    
-                                    renderInventoryTable();
-                                    renderSalesTable();
-                                    updateReminders();
-                                    updateSalesStats();
-                                    updateDataStats();
-                                    
-                                    showToast('数据导入成功！', 'success');
-                                }
+                                inventory = data.inventory;
+                                sales = data.sales || [];
+                                itemNames = data.itemNames || [];
+                                subcategories = data.subcategories || {};
+                                
+                                localStorage.setItem('beetle-inventory', JSON.stringify(inventory));
+                                localStorage.setItem('beetle-sales', JSON.stringify(sales));
+                                localStorage.setItem('beetle-item-names', JSON.stringify(itemNames));
+                                localStorage.setItem('beetle-subcategories', JSON.stringify(subcategories));
+                                
+                                renderInventoryTable();
+                                renderSalesTable();
+                                updateReminders();
+                                updateSalesStats();
+                                alert('数据导入成功！');
                             } else {
-                                showToast('文件格式不正确！', 'error');
+                                alert('文件格式不正确！');
                             }
                         } catch (error) {
-                            showToast('导入失败：' + error.message, 'error');
+                            alert('导入失败：' + error.message);
                         }
                     };
                     
@@ -4072,7 +3662,7 @@
             // 导出为Excel
             function exportToExcel() {
                 if (inventory.length === 0) {
-                    showToast('没有数据可以导出！', 'error');
+                    alert('没有数据可以导出！');
                     return;
                 }
                 
@@ -4113,18 +3703,12 @@
                 // 导出文件
                 const fileName = `甲虫库存_${new Date().toISOString().slice(0,10)}.xlsx`;
                 XLSX.writeFile(wb, fileName);
-                
-                // 更新最后备份时间
-                localStorage.setItem('beetle-last-backup', new Date().toISOString());
-                updateDataStats();
-                
-                showToast('数据已导出为Excel文件！', 'success');
             }
             
             // 导出销售记录为Excel
             function exportSalesToExcel() {
                 if (sales.length === 0) {
-                    showToast('没有销售记录可以导出！', 'error');
+                    alert('没有销售记录可以导出！');
                     return;
                 }
                 
@@ -4152,8 +3736,6 @@
                 // 导出文件
                 const fileName = `甲虫销售记录_${new Date().toISOString().slice(0,10)}.xlsx`;
                 XLSX.writeFile(wb, fileName);
-                
-                showToast('销售记录已导出为Excel文件！', 'success');
             }
             
             // 获取状态文本
@@ -4201,13 +3783,11 @@
                     localStorage.removeItem('beetle-sales');
                     localStorage.removeItem('beetle-item-names');
                     localStorage.removeItem('beetle-subcategories');
-                    localStorage.removeItem('beetle-last-backup');
                     renderInventoryTable();
                     renderSalesTable();
                     updateReminders();
                     updateSalesStats();
-                    updateDataStats();
-                    showToast('所有数据已清空！', 'success');
+                    alert('所有数据已清空！');
                 }
             }
             
@@ -4218,16 +3798,9 @@
                     localStorage.setItem('beetle-sales', JSON.stringify(sales));
                     renderSalesTable();
                     updateSalesStats();
-                    updateStats();
-                    showToast('销售记录已清空！', 'success');
+                    alert('销售记录已清空！');
                 }
             }
-            
-            // 立即备份
-            document.getElementById('backup-now').addEventListener('click', function() {
-                saveToLocalStorage();
-                document.getElementById('backup-notice').classList.remove('show');
-            });
             
             // 事件监听
             document.getElementById('add-item').addEventListener('click', addItem);
@@ -4272,23 +3845,13 @@
                 }
             });
             
-            // 搜索功能
-            document.getElementById('search-inventory').addEventListener('input', function() {
-                renderInventoryTable(this.value);
-            });
-            
-            document.getElementById('search-sales').addEventListener('input', function() {
-                renderSalesTable(this.value);
-            });
-            
             // 设置默认日期为今天
             const today = new Date();
-            const todayStr = today.toISOString().split('T')[0];
-            document.getElementById('item-change-date').value = todayStr;
-            document.getElementById('item-next-change-date').value = calculateThreeMonthsLater(todayStr);
-            document.getElementById('soil-change-date').value = todayStr;
-            document.getElementById('metamorphosis-date').value = todayStr;
-            document.getElementById('sale-date').value = todayStr;
+            document.getElementById('item-change-date').valueAsDate = today;
+            document.getElementById('item-next-change-date').valueAsDate = calculateThreeMonthsLater(today.toISOString().split('T')[0]);
+            document.getElementById('soil-change-date').valueAsDate = today;
+            document.getElementById('metamorphosis-date').valueAsDate = today;
+            document.getElementById('sale-date').valueAsDate = today;
             
             // 性别选择变化时，控制换土时间字段
             document.getElementById('item-gender').addEventListener('change', function() {
@@ -4306,8 +3869,9 @@
                     changeDateField.disabled = false;
                     nextChangeDateField.disabled = false;
                     if (!changeDateField.value) {
-                        changeDateField.value = todayStr;
-                        nextChangeDateField.value = calculateThreeMonthsLater(todayStr);
+                        const today = new Date().toISOString().split('T')[0];
+                        changeDateField.value = today;
+                        nextChangeDateField.value = calculateThreeMonthsLater(today);
                     }
                 }
             });
@@ -4334,20 +3898,6 @@
             renderSalesTable();
             updateReminders();
             updateSalesStats();
-            updateDataStats();
-            
-            // 检查是否有数据，显示备份提醒
-            if (inventory.length > 0) {
-                const lastBackup = localStorage.getItem('beetle-last-backup');
-                const oneWeekAgo = new Date();
-                oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
-                
-                if (!lastBackup || new Date(lastBackup) < oneWeekAgo) {
-                    setTimeout(() => {
-                        document.getElementById('backup-notice').classList.add('show');
-                    }, 3000);
-                }
-            }
         });
     </script>
 </body>
