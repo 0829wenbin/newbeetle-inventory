@@ -798,6 +798,62 @@
         .slide-up {
             animation: slideUp 0.4s ease;
         }
+        
+        /* 间隔选择器样式 */
+        .interval-selector {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .interval-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        
+        .interval-option {
+            flex: 1;
+            min-width: 70px;
+        }
+        
+        .interval-btn {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            background-color: white;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+        }
+        
+        .interval-btn:hover {
+            border-color: var(--secondary-color);
+            background-color: #f0f9f0;
+        }
+        
+        .interval-btn.active {
+            background-color: var(--secondary-color);
+            color: white;
+            border-color: var(--secondary-color);
+        }
+        
+        .custom-interval {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .custom-interval input {
+            flex: 1;
+        }
+        
+        .custom-interval span {
+            font-weight: 600;
+            color: var(--primary-color);
+            white-space: nowrap;
+        }
     </style>
 </head>
 <body>
@@ -902,6 +958,24 @@
                             <label for="item-change-date"><i class="fas fa-calendar-day"></i> 最近换土时间</label>
                             <input type="date" id="item-change-date">
                             <div class="input-hint">仅幼虫/蛹需要</div>
+                        </div>
+                        
+                        <!-- 新增：换土间隔设置 -->
+                        <div class="form-group" id="change-interval-group" style="display: none;">
+                            <label for="item-change-interval"><i class="fas fa-calendar-week"></i> 换土间隔（月）</label>
+                            <div class="interval-selector">
+                                <div class="interval-options">
+                                    <button type="button" class="interval-btn interval-option" data-interval="1">1个月</button>
+                                    <button type="button" class="interval-btn interval-option" data-interval="2">2个月</button>
+                                    <button type="button" class="interval-btn interval-option active" data-interval="3">3个月</button>
+                                    <button type="button" class="interval-btn interval-option" data-interval="4">4个月</button>
+                                </div>
+                                <div class="custom-interval">
+                                    <input type="number" id="item-change-interval" min="1" max="12" value="3" placeholder="自定义月份">
+                                    <span>个月</span>
+                                </div>
+                            </div>
+                            <div class="input-hint">设置下次换土的时间间隔，默认3个月</div>
                         </div>
                     </div>
                     
@@ -1228,11 +1302,19 @@
                             }
                         }
                         
+                        // 显示换土间隔
+                        let changeIntervalText = '';
+                        if (item.changeInterval && item.changeInterval !== 3) {
+                            changeIntervalText = `<span style="display: inline-block; background-color: #e3f2fd; color: #1976d2; padding: 2px 8px; border-radius: 12px; font-size: 0.75rem; margin-left: 5px; font-weight: 600;">
+                                ${item.changeInterval}个月换土
+                            </span>`;
+                        }
+                        
                         listHTML += `
                         <div class="inventory-item slide-up" data-id="${item.id}">
                             <div class="item-header">
                                 <div>
-                                    <div class="item-name">${item.name}${metamorphosisNote}</div>
+                                    <div class="item-name">${item.name}${metamorphosisNote}${changeIntervalText}</div>
                                     ${item.subcategory ? `<div class="item-subcategory">${item.subcategory}</div>` : ''}
                                 </div>
                                 <span class="item-status ${statusInfo.class}">${statusInfo.text}</span>
@@ -1268,6 +1350,13 @@
                                     <span class="detail-label">下次换土</span>
                                     <span class="detail-value">${item.nextChangeDate || '-'}</span>
                                 </div>
+                                
+                                ${item.changeInterval ? `
+                                <div class="detail-item">
+                                    <span class="detail-label">换土间隔</span>
+                                    <span class="detail-value">${item.changeInterval}个月</span>
+                                </div>
+                                ` : ''}
                             </div>
                             
                             <div class="item-footer">
@@ -1370,6 +1459,25 @@
                     const btn = target.classList.contains('reminder-soil-change-btn') ? target : target.closest('.reminder-soil-change-btn');
                     const id = btn.getAttribute('data-id');
                     openSoilChangeModal(id);
+                }
+                
+                // 换土间隔选项按钮
+                if (target.classList.contains('interval-btn') && !target.classList.contains('active')) {
+                    const intervalBtns = target.parentElement.querySelectorAll('.interval-btn');
+                    intervalBtns.forEach(btn => btn.classList.remove('active'));
+                    target.classList.add('active');
+                    
+                    const intervalValue = target.getAttribute('data-interval');
+                    const customInput = document.getElementById('item-change-interval');
+                    if (customInput) {
+                        customInput.value = intervalValue;
+                    }
+                    
+                    // 如果是模态框中的间隔按钮，也更新模态框中的输入框
+                    const modalIntervalInput = document.getElementById('modal-soil-interval');
+                    if (modalIntervalInput) {
+                        modalIntervalInput.value = intervalValue;
+                    }
                 }
             });
             
@@ -1533,6 +1641,14 @@
                         
                         const daysText = diffDays < 0 ? `超期 ${Math.abs(diffDays)} 天` : `剩余 ${diffDays} 天`;
                         
+                        // 显示换土间隔
+                        let intervalText = '';
+                        if (item.changeInterval && item.changeInterval !== 3) {
+                            intervalText = `<div style="font-size: 0.85rem; color: #1976d2; margin-top: 5px;">
+                                <i class="fas fa-calendar-week"></i> 换土间隔：${item.changeInterval}个月
+                            </div>`;
+                        }
+                        
                         listHTML += `
                         <div class="${reminderClass}">
                             <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px;">
@@ -1565,6 +1681,8 @@
                                 </div>
                             </div>
                             
+                            ${intervalText}
+                            
                             <div style="display: flex; justify-content: flex-end;">
                                 <button class="item-action action-change reminder-soil-change-btn" data-id="${item.id}" style="flex: 0 0 auto;">
                                     <i class="fas fa-seedling"></i> 记录换土
@@ -1590,6 +1708,14 @@
                         const nextChangeDate = new Date(item.nextChangeDate);
                         const diffTime = nextChangeDate - today;
                         const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+                        
+                        // 显示换土间隔
+                        let intervalText = '';
+                        if (item.changeInterval && item.changeInterval !== 3) {
+                            intervalText = `<div style="font-size: 0.85rem; color: #1976d2; margin-top: 5px;">
+                                <i class="fas fa-calendar-week"></i> 换土间隔：${item.changeInterval}个月
+                            </div>`;
+                        }
                         
                         listHTML += `
                         <div class="reminder-item upcoming">
@@ -1617,6 +1743,8 @@
                                     <div style="font-weight: 600;">${item.nextChangeDate}</div>
                                 </div>
                             </div>
+                            
+                            ${intervalText}
                         </div>
                         `;
                     });
@@ -1638,10 +1766,10 @@
                 return Date.now().toString(36) + Math.random().toString(36).substr(2);
             }
             
-            // 计算三个月后的日期
-            function calculateThreeMonthsLater(date) {
+            // 计算下次换土日期（根据间隔月数）
+            function calculateNextChangeDate(date, intervalMonths) {
                 const result = new Date(date);
-                result.setMonth(result.getMonth() + 3);
+                result.setMonth(result.getMonth() + intervalMonths);
                 return result.toISOString().split('T')[0];
             }
             
@@ -1654,6 +1782,7 @@
                 const quantity = parseInt(document.getElementById('item-quantity').value) || 1;
                 const price = parseFloat(document.getElementById('item-price').value) || 0;
                 const changeDate = document.getElementById('item-change-date').value;
+                const changeInterval = parseInt(document.getElementById('item-change-interval').value) || 3;
                 
                 // 验证必填项
                 if (!name) {
@@ -1690,19 +1819,21 @@
                 if (needsChange) {
                     if (changeDate) {
                         lastChangeDate = changeDate;
-                        nextChangeDate = calculateThreeMonthsLater(lastChangeDate);
+                        nextChangeDate = calculateNextChangeDate(lastChangeDate, changeInterval);
                         changeHistory = [{
                             date: lastChangeDate,
-                            notes: '初始记录'
+                            notes: '初始记录',
+                            interval: changeInterval
                         }];
                     } else {
                         // 如果没有提供换土时间，使用今天作为默认
                         const today = new Date().toISOString().split('T')[0];
                         lastChangeDate = today;
-                        nextChangeDate = calculateThreeMonthsLater(today);
+                        nextChangeDate = calculateNextChangeDate(today, changeInterval);
                         changeHistory = [{
                             date: today,
-                            notes: '初始记录'
+                            notes: '初始记录',
+                            interval: changeInterval
                         }];
                     }
                 }
@@ -1718,6 +1849,7 @@
                     price: price,
                     lastChangeDate: lastChangeDate,
                     nextChangeDate: nextChangeDate,
+                    changeInterval: needsChange ? changeInterval : null, // 保存换土间隔
                     changeHistory: changeHistory,
                     createdAt: new Date().toISOString(),
                     updatedAt: new Date().toISOString(),
@@ -1736,7 +1868,7 @@
                 updateReminders();
                 
                 // 显示成功消息
-                alert('项目添加成功！' + (needsChange && !changeDate ? '\n注意：已自动设置换土时间为今天。' : ''));
+                alert('项目添加成功！' + (needsChange && !changeDate ? `\n注意：已自动设置换土时间为今天，间隔${changeInterval}个月。` : ''));
             }
             
             // 删除项目
@@ -1769,6 +1901,15 @@
                 document.getElementById('item-quantity').value = '1';
                 document.getElementById('item-price').value = '';
                 document.getElementById('item-change-date').value = '';
+                
+                // 重置间隔选择器
+                const intervalBtns = document.querySelectorAll('.interval-option');
+                intervalBtns.forEach(btn => btn.classList.remove('active'));
+                document.querySelector('.interval-option[data-interval="3"]').classList.add('active');
+                document.getElementById('item-change-interval').value = '3';
+                
+                // 隐藏换土间隔设置
+                document.getElementById('change-interval-group').style.display = 'none';
             }
             
             // 自动填充换土时间
@@ -1783,6 +1924,27 @@
                 document.getElementById('item-change-date').value = today;
                 
                 alert('已自动填充最近换土时间为今天');
+            });
+            
+            // 性别选择变化时，控制换土时间字段和间隔设置
+            document.getElementById('item-gender').addEventListener('change', function() {
+                const gender = this.value;
+                const changeDateField = document.getElementById('item-change-date');
+                const changeIntervalGroup = document.getElementById('change-interval-group');
+                
+                if (!needsSoilChange(gender)) {
+                    // 成虫不需要换土时间
+                    changeDateField.value = '';
+                    changeDateField.disabled = true;
+                    changeIntervalGroup.style.display = 'none';
+                } else {
+                    changeDateField.disabled = false;
+                    changeIntervalGroup.style.display = 'flex';
+                    if (!changeDateField.value) {
+                        const today = new Date().toISOString().split('T')[0];
+                        changeDateField.value = today;
+                    }
+                }
             });
             
             // 打开售卖模态框
@@ -1965,7 +2127,7 @@
                 alert(`售卖记录已保存！成功售出${saleQuantity}只${item.name}，总金额¥${totalPrice.toFixed(2)}。`);
             }
             
-            // 打开记录换土模态框
+            // 打开记录换土模态框（带间隔设置）
             function openSoilChangeModal(id) {
                 const item = inventory.find(item => item.id === id);
                 if (!item) return;
@@ -1977,6 +2139,9 @@
                 }
                 
                 currentModalItemId = id;
+                
+                // 获取当前项目的换土间隔
+                const currentInterval = item.changeInterval || 3;
                 
                 // 创建模态框
                 const modalHTML = `
@@ -1995,6 +2160,23 @@
                                 <div class="form-group">
                                     <label for="modal-soil-date"><i class="fas fa-calendar-day"></i> 换土日期</label>
                                     <input type="date" id="modal-soil-date" value="${new Date().toISOString().split('T')[0]}">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="modal-soil-interval"><i class="fas fa-calendar-week"></i> 下次换土间隔（月）</label>
+                                    <div class="interval-selector">
+                                        <div class="interval-options">
+                                            <button type="button" class="interval-btn interval-option ${currentInterval === 1 ? 'active' : ''}" data-interval="1">1个月</button>
+                                            <button type="button" class="interval-btn interval-option ${currentInterval === 2 ? 'active' : ''}" data-interval="2">2个月</button>
+                                            <button type="button" class="interval-btn interval-option ${currentInterval === 3 ? 'active' : ''}" data-interval="3">3个月</button>
+                                            <button type="button" class="interval-btn interval-option ${currentInterval === 4 ? 'active' : ''}" data-interval="4">4个月</button>
+                                        </div>
+                                        <div class="custom-interval">
+                                            <input type="number" id="modal-soil-interval" min="1" max="12" value="${currentInterval}" placeholder="自定义月份">
+                                            <span>个月</span>
+                                        </div>
+                                    </div>
+                                    <div class="input-hint">设置下次换土的时间间隔</div>
                                 </div>
                                 
                                 <div class="form-group">
@@ -2043,15 +2225,33 @@
                         currentModalItemId = null;
                     }
                 });
+                
+                // 绑定间隔按钮事件
+                modal.querySelectorAll('.interval-btn').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const intervalBtns = this.parentElement.querySelectorAll('.interval-btn');
+                        intervalBtns.forEach(b => b.classList.remove('active'));
+                        this.classList.add('active');
+                        
+                        const intervalValue = this.getAttribute('data-interval');
+                        document.getElementById('modal-soil-interval').value = intervalValue;
+                    });
+                });
             }
             
             // 保存换土记录
             function saveSoilChange() {
                 const changeDate = document.getElementById('modal-soil-date').value;
+                const changeInterval = parseInt(document.getElementById('modal-soil-interval').value) || 3;
                 const notes = document.getElementById('modal-soil-notes').value.trim();
                 
                 if (!changeDate) {
                     alert('请选择换土日期');
+                    return;
+                }
+                
+                if (changeInterval < 1 || changeInterval > 12) {
+                    alert('换土间隔必须在1-12个月之间');
                     return;
                 }
                 
@@ -2067,10 +2267,11 @@
                 }
                 
                 // 更新换土记录
-                const nextChangeDate = calculateThreeMonthsLater(changeDate);
+                const nextChangeDate = calculateNextChangeDate(changeDate, changeInterval);
                 
                 inventory[itemIndex].lastChangeDate = changeDate;
                 inventory[itemIndex].nextChangeDate = nextChangeDate;
+                inventory[itemIndex].changeInterval = changeInterval;
                 inventory[itemIndex].updatedAt = new Date().toISOString();
                 
                 // 添加换土历史记录
@@ -2080,7 +2281,8 @@
                 
                 inventory[itemIndex].changeHistory.push({
                     date: changeDate,
-                    notes: notes || '换土记录'
+                    notes: notes || '换土记录',
+                    interval: changeInterval
                 });
                 
                 // 保存到本地存储
@@ -2094,10 +2296,10 @@
                 renderInventoryList();
                 updateReminders();
                 
-                alert('换土记录已保存！');
+                alert(`换土记录已保存！下次换土时间：${nextChangeDate}（间隔${changeInterval}个月）`);
             }
             
-            // 打开编辑项目模态框
+            // 打开编辑项目模态框（带换土间隔设置）
             function openEditModal(id) {
                 const item = inventory.find(item => item.id === id);
                 if (!item) return;
@@ -2149,6 +2351,26 @@
                                     <label for="modal-edit-price"><i class="fas fa-yen-sign"></i> 单价 (¥)</label>
                                     <input type="number" id="modal-edit-price" min="0" step="0.01" value="${item.price}">
                                 </div>
+                                
+                                <!-- 换土间隔设置（仅幼虫/蛹/未知显示） -->
+                                ${needsSoilChange(item.gender) ? `
+                                <div class="form-group">
+                                    <label for="modal-edit-interval"><i class="fas fa-calendar-week"></i> 换土间隔（月）</label>
+                                    <div class="interval-selector">
+                                        <div class="interval-options">
+                                            <button type="button" class="interval-btn interval-option ${item.changeInterval === 1 ? 'active' : ''}" data-interval="1">1个月</button>
+                                            <button type="button" class="interval-btn interval-option ${item.changeInterval === 2 ? 'active' : ''}" data-interval="2">2个月</button>
+                                            <button type="button" class="interval-btn interval-option ${(!item.changeInterval || item.changeInterval === 3) ? 'active' : ''}" data-interval="3">3个月</button>
+                                            <button type="button" class="interval-btn interval-option ${item.changeInterval === 4 ? 'active' : ''}" data-interval="4">4个月</button>
+                                        </div>
+                                        <div class="custom-interval">
+                                            <input type="number" id="modal-edit-interval" min="1" max="12" value="${item.changeInterval || 3}" placeholder="自定义月份">
+                                            <span>个月</span>
+                                        </div>
+                                    </div>
+                                    <div class="input-hint">设置下次换土的时间间隔</div>
+                                </div>
+                                ` : ''}
                             </div>
                             
                             <div class="button-group" style="margin-top: 30px;">
@@ -2191,6 +2413,21 @@
                         currentModalItemId = null;
                     }
                 });
+                
+                // 绑定编辑模态框中的间隔按钮事件
+                const editIntervalGroup = modal.querySelector('#modal-edit-interval');
+                if (editIntervalGroup) {
+                    modal.querySelectorAll('.interval-btn').forEach(btn => {
+                        btn.addEventListener('click', function() {
+                            const intervalBtns = this.parentElement.querySelectorAll('.interval-btn');
+                            intervalBtns.forEach(b => b.classList.remove('active'));
+                            this.classList.add('active');
+                            
+                            const intervalValue = this.getAttribute('data-interval');
+                            document.getElementById('modal-edit-interval').value = intervalValue;
+                        });
+                    });
+                }
             }
             
             // 保存编辑
@@ -2222,6 +2459,12 @@
                 const newNeedsChange = needsSoilChange(gender);
                 const oldNeedsChange = needsSoilChange(inventory[itemIndex].gender);
                 
+                // 获取换土间隔（如果需要换土）
+                let changeInterval = null;
+                if (newNeedsChange) {
+                    changeInterval = parseInt(document.getElementById('modal-edit-interval')?.value) || 3;
+                }
+                
                 // 更新项目基本信息
                 inventory[itemIndex].name = name;
                 inventory[itemIndex].subcategory = subcategory || '';
@@ -2231,20 +2474,39 @@
                 inventory[itemIndex].price = price;
                 inventory[itemIndex].updatedAt = new Date().toISOString();
                 
-                // 处理换土时间（如果从成虫变为幼虫/蛹，需要初始化换土时间）
-                if (newNeedsChange && !oldNeedsChange && !inventory[itemIndex].lastChangeDate) {
-                    const today = new Date().toISOString().split('T')[0];
-                    inventory[itemIndex].lastChangeDate = today;
-                    inventory[itemIndex].nextChangeDate = calculateThreeMonthsLater(today);
+                // 处理换土间隔
+                if (newNeedsChange) {
+                    inventory[itemIndex].changeInterval = changeInterval;
                     
-                    if (!inventory[itemIndex].changeHistory) {
-                        inventory[itemIndex].changeHistory = [];
+                    // 如果从成虫变为幼虫/蛹，需要初始化换土时间
+                    if (!oldNeedsChange && !inventory[itemIndex].lastChangeDate) {
+                        const today = new Date().toISOString().split('T')[0];
+                        inventory[itemIndex].lastChangeDate = today;
+                        inventory[itemIndex].nextChangeDate = calculateNextChangeDate(today, changeInterval);
+                        
+                        if (!inventory[itemIndex].changeHistory) {
+                            inventory[itemIndex].changeHistory = [];
+                        }
+                        
+                        inventory[itemIndex].changeHistory.push({
+                            date: today,
+                            notes: '初始记录',
+                            interval: changeInterval
+                        });
                     }
                     
-                    inventory[itemIndex].changeHistory.push({
-                        date: today,
-                        notes: '初始记录'
-                    });
+                    // 如果已经有换土时间，重新计算下次换土时间
+                    else if (inventory[itemIndex].lastChangeDate && inventory[itemIndex].changeInterval !== changeInterval) {
+                        inventory[itemIndex].nextChangeDate = calculateNextChangeDate(
+                            inventory[itemIndex].lastChangeDate, 
+                            changeInterval
+                        );
+                    }
+                } else {
+                    // 如果从幼虫/蛹变为成虫，清除换土相关数据
+                    inventory[itemIndex].lastChangeDate = '';
+                    inventory[itemIndex].nextChangeDate = '';
+                    inventory[itemIndex].changeInterval = null;
                 }
                 
                 // 保存到本地存储
@@ -2440,6 +2702,7 @@
                     price: price > 0 ? price : larvaItem.price,
                     lastChangeDate: '',
                     nextChangeDate: '',
+                    changeInterval: null, // 成虫不需要换土间隔
                     changeHistory: adultChangeHistory,
                     createdAt: new Date().toISOString(),
                     updatedAt: new Date().toISOString(),
@@ -2496,6 +2759,14 @@
                     const isMetamorphosisRecord = record.notes && record.notes.includes('羽化记录');
                     const recordClass = isMetamorphosisRecord ? 'style="background-color: #fff3e0; padding: 12px; border-radius: 8px; border-left: 4px solid #ff9800; margin-bottom: 10px;"' : 'style="background-color: #f0f9f0; padding: 12px; border-radius: 8px; border-left: 4px solid #4caf50; margin-bottom: 10px;"';
                     
+                    // 显示间隔信息
+                    let intervalInfo = '';
+                    if (record.interval) {
+                        intervalInfo = `<div style="font-size: 0.85rem; color: #1976d2; margin-top: 5px;">
+                            <i class="fas fa-calendar-week"></i> 换土间隔：${record.interval}个月
+                        </div>`;
+                    }
+                    
                     historyHTML += `
                     <div ${recordClass}>
                         <div style="display: flex; justify-content: space-between;">
@@ -2503,6 +2774,7 @@
                             ${isMetamorphosisRecord ? '<span style="color: #ff9800; font-weight: 600;">羽化记录</span>' : ''}
                         </div>
                         <div style="margin-top: 5px;">${record.notes || '换土记录'}</div>
+                        ${intervalInfo}
                     </div>
                     `;
                 });
@@ -2741,21 +3013,19 @@
             const today = new Date();
             document.getElementById('item-change-date').valueAsDate = today;
             
-            // 性别选择变化时，控制换土时间字段
-            document.getElementById('item-gender').addEventListener('change', function() {
-                const gender = this.value;
-                const changeDateField = document.getElementById('item-change-date');
+            // 自定义换土间隔输入框变化时更新按钮状态
+            document.getElementById('item-change-interval')?.addEventListener('change', function() {
+                const value = parseInt(this.value) || 3;
+                const intervalBtns = document.querySelectorAll('.interval-option');
+                intervalBtns.forEach(btn => btn.classList.remove('active'));
                 
-                if (!needsSoilChange(gender)) {
-                    // 成虫不需要换土时间
-                    changeDateField.value = '';
-                    changeDateField.disabled = true;
-                } else {
-                    changeDateField.disabled = false;
-                    if (!changeDateField.value) {
-                        const today = new Date().toISOString().split('T')[0];
-                        changeDateField.value = today;
-                    }
+                // 查找匹配的按钮
+                const matchingBtn = Array.from(intervalBtns).find(btn => 
+                    parseInt(btn.getAttribute('data-interval')) === value
+                );
+                
+                if (matchingBtn) {
+                    matchingBtn.classList.add('active');
                 }
             });
             
