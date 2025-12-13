@@ -517,6 +517,7 @@
             gap: 6px;
             flex: 1;
             min-width: 100px;
+            border: none;
         }
         
         .action-edit {
@@ -1014,20 +1015,6 @@
         </footer>
     </div>
 
-    <!-- 模态框模板 -->
-    <div id="modal-template" style="display: none;">
-        <div class="modal">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h3 class="modal-title"></h3>
-                    <button class="close-modal">&times;</button>
-                </div>
-                <div class="modal-body"></div>
-            </div>
-        </div>
-    </div>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // 设置当前年份
@@ -1284,35 +1271,35 @@
                             </div>
                             
                             <div class="item-footer">
-                                <button class="item-action action-edit edit-item" data-id="${item.id}">
+                                <button class="item-action action-edit edit-item-btn" data-id="${item.id}">
                                     <i class="fas fa-edit"></i> 编辑
                                 </button>
                                 
                                 ${needsSoilChange(item.gender) ? `
-                                <button class="item-action action-change record-soil-change" data-id="${item.id}">
+                                <button class="item-action action-change record-soil-change-btn" data-id="${item.id}">
                                     <i class="fas fa-seedling"></i> 换土
                                 </button>
                                 ` : ''}
                                 
                                 ${item.gender === '幼虫' && item.quantity > 0 ? `
-                                <button class="item-action action-metamorphosis record-metamorphosis" data-id="${item.id}">
+                                <button class="item-action action-metamorphosis record-metamorphosis-btn" data-id="${item.id}">
                                     <i class="fas fa-bug"></i> 羽化
                                 </button>
                                 ` : ''}
                                 
                                 ${item.quantity > 0 ? `
-                                <button class="item-action action-sale record-sale" data-id="${item.id}">
+                                <button class="item-action action-sale record-sale-btn" data-id="${item.id}">
                                     <i class="fas fa-money-bill-wave"></i> 售卖
                                 </button>
                                 ` : ''}
                                 
                                 ${item.changeHistory && item.changeHistory.length > 0 ? `
-                                <button class="item-action action-history view-history" data-id="${item.id}">
+                                <button class="item-action action-history view-history-btn" data-id="${item.id}">
                                     <i class="fas fa-history"></i> 历史
                                 </button>
                                 ` : ''}
                                 
-                                <button class="item-action action-delete delete-item" data-id="${item.id}">
+                                <button class="item-action action-delete delete-item-btn" data-id="${item.id}">
                                     <i class="fas fa-trash"></i> 删除
                                 </button>
                             </div>
@@ -1323,61 +1310,68 @@
                 
                 container.innerHTML = listHTML;
                 updateStats();
-                
-                // 重新绑定按钮事件
-                bindItemEvents();
             }
             
-            // 绑定库存项目事件
-            function bindItemEvents() {
-                // 编辑项目
-                document.querySelectorAll('.edit-item').forEach(button => {
-                    button.addEventListener('click', function() {
-                        const id = this.getAttribute('data-id');
-                        openEditModal(id);
-                    });
-                });
+            // 使用事件委托绑定动态按钮的事件
+            document.addEventListener('click', function(e) {
+                const target = e.target;
                 
-                // 记录换土
-                document.querySelectorAll('.record-soil-change').forEach(button => {
-                    button.addEventListener('click', function() {
-                        const id = this.getAttribute('data-id');
-                        openSoilChangeModal(id);
-                    });
-                });
+                // 编辑按钮
+                if (target.classList.contains('edit-item-btn') || target.closest('.edit-item-btn')) {
+                    const btn = target.classList.contains('edit-item-btn') ? target : target.closest('.edit-item-btn');
+                    const id = btn.getAttribute('data-id');
+                    openEditModal(id);
+                }
                 
-                // 幼虫羽化
-                document.querySelectorAll('.record-metamorphosis').forEach(button => {
-                    button.addEventListener('click', function() {
-                        const id = this.getAttribute('data-id');
-                        openMetamorphosisModal(id);
-                    });
-                });
+                // 换土按钮
+                if (target.classList.contains('record-soil-change-btn') || target.closest('.record-soil-change-btn')) {
+                    const btn = target.classList.contains('record-soil-change-btn') ? target : target.closest('.record-soil-change-btn');
+                    const id = btn.getAttribute('data-id');
+                    openSoilChangeModal(id);
+                }
                 
-                // 售卖
-                document.querySelectorAll('.record-sale').forEach(button => {
-                    button.addEventListener('click', function() {
-                        const id = this.getAttribute('data-id');
-                        openSaleModal(id);
-                    });
-                });
+                // 羽化按钮
+                if (target.classList.contains('record-metamorphosis-btn') || target.closest('.record-metamorphosis-btn')) {
+                    const btn = target.classList.contains('record-metamorphosis-btn') ? target : target.closest('.record-metamorphosis-btn');
+                    const id = btn.getAttribute('data-id');
+                    openMetamorphosisModal(id);
+                }
                 
-                // 查看历史
-                document.querySelectorAll('.view-history').forEach(button => {
-                    button.addEventListener('click', function() {
-                        const id = this.getAttribute('data-id');
-                        openHistoryModal(id);
-                    });
-                });
+                // 售卖按钮
+                if (target.classList.contains('record-sale-btn') || target.closest('.record-sale-btn')) {
+                    const btn = target.classList.contains('record-sale-btn') ? target : target.closest('.record-sale-btn');
+                    const id = btn.getAttribute('data-id');
+                    openSaleModal(id);
+                }
                 
-                // 删除项目
-                document.querySelectorAll('.delete-item').forEach(button => {
-                    button.addEventListener('click', function() {
-                        const id = this.getAttribute('data-id');
-                        deleteItem(id);
-                    });
-                });
-            }
+                // 历史按钮
+                if (target.classList.contains('view-history-btn') || target.closest('.view-history-btn')) {
+                    const btn = target.classList.contains('view-history-btn') ? target : target.closest('.view-history-btn');
+                    const id = btn.getAttribute('data-id');
+                    openHistoryModal(id);
+                }
+                
+                // 删除按钮
+                if (target.classList.contains('delete-item-btn') || target.closest('.delete-item-btn')) {
+                    const btn = target.classList.contains('delete-item-btn') ? target : target.closest('.delete-item-btn');
+                    const id = btn.getAttribute('data-id');
+                    deleteItem(id);
+                }
+                
+                // 销售记录删除按钮
+                if (target.classList.contains('delete-sale-btn') || target.closest('.delete-sale-btn')) {
+                    const btn = target.classList.contains('delete-sale-btn') ? target : target.closest('.delete-sale-btn');
+                    const id = btn.getAttribute('data-id');
+                    deleteSale(id);
+                }
+                
+                // 提醒列表中的换土按钮
+                if (target.classList.contains('reminder-soil-change-btn') || target.closest('.reminder-soil-change-btn')) {
+                    const btn = target.classList.contains('reminder-soil-change-btn') ? target : target.closest('.reminder-soil-change-btn');
+                    const id = btn.getAttribute('data-id');
+                    openSoilChangeModal(id);
+                }
+            });
             
             // 显示销售列表
             function renderSalesList() {
@@ -1457,7 +1451,7 @@
                             ${sale.notes ? `<div style="font-size: 0.9rem; color: var(--text-light); padding: 8px; background-color: #f9f9f9; border-radius: 8px; margin-bottom: 10px;">${sale.notes}</div>` : ''}
                             
                             <div style="display: flex; justify-content: flex-end;">
-                                <button class="item-action action-delete delete-sale" data-id="${sale.id}" style="flex: 0 0 auto;">
+                                <button class="item-action action-delete delete-sale-btn" data-id="${sale.id}" style="flex: 0 0 auto;">
                                     <i class="fas fa-trash"></i> 删除
                                 </button>
                             </div>
@@ -1467,14 +1461,6 @@
                 });
                 
                 container.innerHTML = listHTML;
-                
-                // 绑定删除销售记录事件
-                document.querySelectorAll('.delete-sale').forEach(button => {
-                    button.addEventListener('click', function() {
-                        const id = this.getAttribute('data-id');
-                        deleteSale(id);
-                    });
-                });
             }
             
             // 更新换土提醒列表
@@ -1580,7 +1566,7 @@
                             </div>
                             
                             <div style="display: flex; justify-content: flex-end;">
-                                <button class="item-action action-change record-soil-change" data-id="${item.id}" style="flex: 0 0 auto;">
+                                <button class="item-action action-change reminder-soil-change-btn" data-id="${item.id}" style="flex: 0 0 auto;">
                                     <i class="fas fa-seedling"></i> 记录换土
                                 </button>
                             </div>
@@ -1644,14 +1630,6 @@
                 } else {
                     container.innerHTML = listHTML;
                     emptyMsg.style.display = 'none';
-                    
-                    // 绑定提醒列表中的按钮事件
-                    document.querySelectorAll('#reminders-list .record-soil-change').forEach(button => {
-                        button.addEventListener('click', function() {
-                            const id = this.getAttribute('data-id');
-                            openSoilChangeModal(id);
-                        });
-                    });
                 }
             }
             
